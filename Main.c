@@ -3,7 +3,6 @@
 #include <string.h>
 #include <ctype.h>
 #include <windows.h>
-
 #define MAX_USERS 100
 #define MAX_CLAIMS 100
 
@@ -95,9 +94,9 @@ void formulaireInscription() {
         return;
     }
 
-    // Ajouter l'utilisateur au tableau
+    // Ajouter l  utilisateur au tableau
     if (userCount < MAX_USERS) {
-        users[userCount] = newuser; // Ajoute le nouvel utilisateur
+        users[userCount] = newuser;
         printf("Vous avez cree votre compte avec succes.\n");
         userCount++;
     } else {
@@ -121,61 +120,65 @@ int signinAsAdmin() {
     }
 }
 
-int signinAsClient() {
+void connexion() {
+    int trouve = 0, count = 1;
     char username[20], password[20];
-    printf("Veuillez entrer le nom d'utilisateur Client: ");
-    scanf(" %[^\n]", username);
 
-    printf("Veuillez entrer le mot de passe Client: ");
-    scanf("%s", password);
-
-    for (int i = 0; i < userCount; i++) {
-        if (strcmp(users[i].username, username) == 0 && strcmp(users[i].password, password) == 0) {
-            printf("Connexion Client réussie\n");
-            return 1;
-        }
-    }
-
-    printf("Echec de la connexion en tant que client\n");
-    return 0;
-}
-
- void connexion(){
-     int trouve=0,count=1;
-    char username[20], password[20];
     printf("\n-----------Connexion-----------\n");
-   while(count<=3){
+    while (count <= 3) {
+        printf("Veuillez entrer le nom d'utilisateur : ");
+        scanf(" %[^\n]", username);
 
-    printf("Veuillez entrer le nom d'utilisateur : ");
-    scanf(" %[^\n]", username);
+        printf("Veuillez entrer le mot de passe : ");
+        scanf("%s", password);
 
-    printf("Veuillez entrer le mot de passe : ");
-      int i;
-    for(i=0;i<userCount;i++){
-     if (strcmp(users[i].username, username) == 0 && strcmp(users[i].password, password) == 0) {
-           trouve=1;
-           break;  // Utilisateur trouvé
+        for (int i = 0; i < userCount; i++) {
+            if (strcmp(users[i].username, username) == 0 && strcmp(users[i].password, password) == 0) {
+                trouve = 1;
+                break;
+            }
         }
+
+        if (trouve == 1) {
+            clientMenu();
+            return;
+        } else {
+            printf("Connexion echouee\n");
+        }
+
+        count++;
+        printf("\nAttention il vous reste %d tentative(s)\n", (3 - count) + 1);
     }
 
-    if(trouve==1){
+    printf("\nErreur !! Mot de passe incorrect 3 fois\n");
 
-        clientMenu();
-    }else{
-        printf("Connexion a Echoouee");
-    }
-    scanf("%s", password);
-    count++;
-    printf("\nAttention vous reste %d fois\n",(3-count)+1);
+
+    printf("Veuillez patienter 10 secondes avant de réessayer...\n");
+    sleep(10);
 }
 
-printf("\n Ereur !! Incorrect Password 3 fois\n");
- printf("Veuillez patienter 10 secondes avant de reessayer...\n");
-   Sleep(10000);
+void generer_role() {
+    int i, modifie = 0;
+    char nom[20];
+    printf("Entrer le nom de Client à changer en agent: ");
+    scanf(" %[^\n]", nom);
 
- }
- void clientMenu(){
-  int choice;
+    for (i = 0; i < userCount; i++) {
+        if (strcmp(users[i].username, nom) == 0) {
+            strcpy(users[i].role,"agent");
+            modifie = 1;
+            break;
+        }
+    }
+    if (modifie == 1) {
+        printf("Utilisateur %s est maintenant agent\n", nom);
+    } else {
+        printf("Utilisateur %s non trouvé\n", nom);
+    }
+}
+
+void clientMenu() {
+    int choice;
     do {
         printf("\n========== Client Menu ==========\n");
         printf("1. Add Claim\n");
@@ -189,16 +192,16 @@ printf("\n Ereur !! Incorrect Password 3 fois\n");
 
         switch (choice) {
             case 1:
-             //   addClaim(clientName);
+                // addClaim(clientName);
                 break;
             case 2:
-               // viewMyClaims(clientName);
+                // viewMyClaims(clientName);
                 break;
             case 3:
-               // modifyMyClaim(clientName);
+                // modifyMyClaim(clientName);
                 break;
             case 4:
-                //deleteMyClaim(clientName);
+                // deleteMyClaim(clientName);
                 break;
             case 0:
                 printf("Logging out...\n");
@@ -208,14 +211,19 @@ printf("\n Ereur !! Incorrect Password 3 fois\n");
         }
     } while (choice != 0);
 }
- void adminMenu(){
-  int choice;
+
+void adminMenu() {
+    int choice;
     do {
         printf("\n========== Admin Menu ==========\n");
-        printf("1. View All Claims\n");
-        printf("2. Process Claim\n");
-        printf("3. Add New Client\n");
-        printf("4. Add/Delete Agent Role\n");
+        printf("1. Gerer les roles des utilisateurs\n");
+        printf("2. Afficher la liste des réclamations\n");
+        printf("3. Modifier une réclamation\n");
+        printf("4. Supprimer une réclamation\n");
+        printf("5. Traiter une réclamation\n");
+        printf("6. Rechercher une réclamation\n");
+        printf("7. Afficher les réclamations ordonnées par priorité\n");
+        printf("8. Traiter une réclamation\n");
         printf("0. Logout\n");
         printf("Enter your choice: ");
         scanf("%d", &choice);
@@ -223,17 +231,13 @@ printf("\n Ereur !! Incorrect Password 3 fois\n");
 
         switch (choice) {
             case 1:
-
+                generer_role();
                 break;
             case 2:
-
                 break;
             case 3:
-
                 break;
             case 4:
-
-
                 break;
             case 0:
                 printf("Logging out as Admin...\n");
@@ -244,10 +248,51 @@ printf("\n Ereur !! Incorrect Password 3 fois\n");
     } while (choice != 0);
 }
 
+void connexion_agent(){
+    int trouve = 0, count = 1;
+    char username[20], password[20];
+
+    printf("\n-----------Connexion-----------\n");
+    while (count <= 3) {
+        printf("Veuillez entrer le nom d'utilisateur : ");
+        scanf(" %[^\n]", username);
+
+        printf("Veuillez entrer le mot de passe : ");
+        scanf("%s", password);
+
+        for (int i = 0; i < userCount; i++) {
+
+               if(strcmp(users[i].role,"agent")==0 && strcmp(users[i].username, username) == 0 && strcmp(users[i].password, password) == 0){
+                    trouve = 1;
+                    break;
+                }
+
+        }
+
+        if (trouve == 1) {
+           // AgentMenu();
+           printf("good");
+            return;
+        } else {
+            printf("Connexion échouée\n");
+        }
+
+        count++;
+        printf("\nAttention il vous reste %d tentative(s)\n", (3 - count) + 1);
+    }
+
+    printf("\nErreur !! Mot de passe incorrect 3 fois\n");
+
+
+    printf("Veuillez patienter 10 secondes avant de réessayer...\n");
+    sleep(10);
+}
+
+
 
 int main() {
     int choice;
-int i;
+    int i;
     do {
         printf("\n============================MENU============================\n");
         printf("1. Espace admin\n");
@@ -263,17 +308,20 @@ int i;
                 if (signinAsAdmin()) {
                     adminMenu();
                 } else {
-                    printf("Echec de la connexion en tant qu admin\n");
+                    printf("Echec de la connexion en tant qu'admin\n");
                 }
                 break;
             case 2:
                 formulaireInscription();
                 break;
             case 3:
-                    connexion();
+                connexion();
+                break;
+            case 4:
+                connexion_agent();
                 break;
             case 0:
-                printf("Merci d utiliser notre App !!");
+                printf("Merci d'utiliser notre App !!\n");
                 break;
             default:
                 printf("Choix invalide. Veuillez réessayer.\n");
