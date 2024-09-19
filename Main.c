@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <ctype.h>
+#include <windows.h>
 
 #define MAX_USERS 100
 #define MAX_CLAIMS 100
@@ -140,17 +141,16 @@ int signinAsClient() {
 }
 
  void connexion(){
-     int trouve=0;
+     int trouve=0,count=1;
     char username[20], password[20];
     printf("\n-----------Connexion-----------\n");
+   while(count<=3){
 
     printf("Veuillez entrer le nom d'utilisateur : ");
     scanf(" %[^\n]", username);
 
     printf("Veuillez entrer le mot de passe : ");
-    scanf("%s", password);
-
-    int i;
+      int i;
     for(i=0;i<userCount;i++){
      if (strcmp(users[i].username, username) == 0 && strcmp(users[i].password, password) == 0) {
            trouve=1;
@@ -164,6 +164,15 @@ int signinAsClient() {
     }else{
         printf("Connexion a Echoouee");
     }
+    scanf("%s", password);
+    count++;
+    printf("\nAttention vous reste %d fois\n",(3-count)+1);
+}
+
+printf("\n Ereur !! Incorrect Password 3 fois\n");
+ printf("Veuillez patienter 10 secondes avant de reessayer...\n");
+   Sleep(10000);
+
  }
  void clientMenu(){
   int choice;
