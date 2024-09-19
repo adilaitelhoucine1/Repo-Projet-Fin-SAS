@@ -181,7 +181,7 @@ void clientMenu() {
     int choice;
     do {
         printf("\n========== Client Menu ==========\n");
-        printf("1. Add Claim\n");
+        printf("1. Ajoutter recl\n");
         printf("2. View My Claims\n");
         printf("3. Modify My Claim\n");
         printf("4. Delete My Claim\n");
@@ -266,7 +266,6 @@ void connexion_agent(){
                     trouve = 1;
                     break;
                 }
-
         }
 
         if (trouve == 1) {
@@ -274,7 +273,7 @@ void connexion_agent(){
            printf("good");
             return;
         } else {
-            printf("Connexion échouée\n");
+            printf("Connexion echouee\n");
         }
 
         count++;
@@ -294,14 +293,18 @@ int main() {
     int choice;
     int i;
     do {
-        printf("\n============================MENU============================\n");
-        printf("1. Espace admin\n");
-        printf("2. Inscription Client\n");
-        printf("3. Connexion Client\n");
-        printf("4. Connexion Agent\n");
-        printf("0. Exit ...\n");
-        printf("Veuillez entrer votre choix: ");
-        scanf("%d", &choice);
+    printf("\n");
+    printf("\n============================MENU==============================\n");
+    printf("||                                                          ||\n");
+    printf("||                      1. Espace admin                     ||\n");
+    printf("||                      2. Inscription Client               ||\n");
+    printf("||                      3. Connexion Client                 ||\n");
+    printf("||                      4. Connexion Agent                  ||\n");
+    printf("||                      0. Exit ...                         ||\n");
+    printf("||                                                          ||\n");
+    printf("==============================================================\n");
+    printf("Veuillez entrer votre choix: ");
+    scanf("%d", &choice);
 
         switch (choice) {
             case 1:
