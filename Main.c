@@ -2,18 +2,19 @@
 #include <stdlib.h>
 #include <string.h>
 #include <ctype.h>
+#include <time.h>
 #include <windows.h>
 #define MAX_USERS 100
 #define MAX_CLAIMS 100
 
 typedef struct {
     int id;
-    char clientName[50];
-    char reason[100];
+    char Motif[100];
     char description[255];
-    char category[50];
+    char categorie[50];
     char status[20];
     char date[20];
+    char notes[100];
 } reclamation;
 
 typedef struct {
@@ -158,6 +159,7 @@ void connexion() {
 }
 
 void generer_role() {
+
     int i, modifie = 0;
     char nom[20];
     printf("Entrer le nom de Client à changer en agent: ");
@@ -177,12 +179,145 @@ void generer_role() {
     }
 }
 
+void Ajout_reclamation() {
+    srand(time(NULL));
+    reclamation newreclamation;
+    newreclamation.id = rand() % 100 + 1;
+
+    printf("Entrer Le Motif : \n");
+    scanf(" %[^\n]", newreclamation.Motif);
+
+    printf("Entrer Le Description : \n");
+    scanf(" %[^\n]", newreclamation.description);
+
+    printf("Entrer La Categorie : \n");
+    scanf(" %[^\n]", newreclamation.categorie);
+
+    strcpy (newreclamation.status,"en Attent");
+    strcpy (newreclamation.notes," Auncune Note A affiche \n");
+
+    time_t t = time(NULL);
+    struct tm tm = *localtime(&t);
+    strftime(newreclamation.date, sizeof(newreclamation.date), "%d-%m-%Y %H:%M:%S", &tm);
+
+    // Ajouter la nouvelle reclamation au tableau
+    if (claimCount < MAX_CLAIMS) {
+        claims[claimCount] = newreclamation;
+        claimCount++;
+        printf("Réclamation ajoutée avec succès.\n");
+    } else {
+        printf("Erreur : Limite de réclamations atteinte.\n");
+    }
+}
+
+void affiche_reclamations() {
+    if (claimCount == 0) {
+        printf("Aucune reclamation à afficher.\n");
+        return;
+    }
+
+    printf("\n==================== Liste des Réclamations ====================\n");
+    for (int i = 0; i < claimCount; i++) {
+        printf("ID: %d\n", claims[i].id);
+        printf("Motif: %s\n", claims[i].Motif);
+        printf("Description: %s\n", claims[i].description);
+        printf("Catégorie: %s\n", claims[i].categorie);
+        printf("Statut: %s\n", claims[i].status);
+        printf("Date: %s\n", claims[i].date);
+        printf("Notes: %s\n",claims[i].notes);
+        printf("---------------------------------------------------------------\n");
+    }
+}
+
+void modifier_reclamation() {
+    int id;
+    printf("Entrez l'ID de la reclamation à modifier: ");
+    scanf("%d", &id);
+
+
+    for (int i = 0; i < claimCount; i++) {
+        if (claims[i].id == id) {
+            printf("Réclamation trouvée:\n");
+            printf("Motif: %s\n", claims[i].Motif);
+            printf("Description: %s\n", claims[i].description);
+            printf("Catégorie: %s\n", claims[i].categorie);
+            printf("Statut: %s\n", claims[i].status);
+            printf("Date: %s\n", claims[i].date);
+
+            // Demander les nouvelles infos
+            char nouveauMotif[100];
+            printf("Entrez le nouveau motif: ");
+            scanf(" %[^\n]", nouveauMotif);
+            strcpy(claims[i].Motif, nouveauMotif);
+
+            char nouvelleDescription[255];
+            printf("Entrez la nouvelle description: ");
+            scanf(" %[^\n]", nouvelleDescription);
+            strcpy(claims[i].description, nouvelleDescription);
+
+            char nouvelleCategorie[50];
+            printf("Entrez la nouvelle catégorie: ");
+            scanf(" %[^\n]", nouvelleCategorie);
+            strcpy(claims[i].categorie, nouvelleCategorie);
+
+            printf("Réclamation modifiée avec succès.\n");
+            return;
+        }
+    }
+
+    printf("Erreur : Réclamation avec l'ID %d non trouvée.\n", id);
+}
+void supprimer_reclamation() {
+
+    int id;
+    if(claimCount==0){
+        printf("Aucune Reclamation a Supprimer\n");
+        return ;
+    }
+    printf("Entrez l'ID de la réclamation à supprimer: ");
+    scanf("%d", &id);
+
+    int found = 0;
+    for (int i = 0; i < claimCount; i++) {
+        if (claims[i].id == id) {
+            found = 1;
+            for (int j = i; j < claimCount - 1; j++) {
+                claims[j] = claims[j + 1];
+            }
+            claimCount--;
+            printf("Reclamation avec ID %d supprimee avec succes.\n", id);
+            break;
+        }
+    }
+
+    if (!found) {
+        printf("Erreur : Reclamation avec l'ID %d non trouvee.\n", id);
+    }
+}
+void modifer_status(int choix){
+    int id;
+    printf("Entrez l'ID de la reclamation à modifier: ");
+    scanf("%d", &id);
+
+
+    for (int i = 0; i < claimCount; i++) {
+        if (claims[i].id == id){
+            if(choix==1){
+                  strcpy(claims[i].status,"en cours");
+            }else if(choix==2){
+                     strcpy(claims[i].status,"resolue");
+            }else{
+                     strcpy(claims[i].status,"fermee");
+            }
+        }
+    }
+}
 void clientMenu() {
     int choice;
     do {
         printf("\n========== Client Menu ==========\n");
-        printf("1. Ajoutter recl\n");
-        printf("2. View My Claims\n");
+        printf("1. Ajouter reclamation\n");
+        printf("2. Lister My Claims\n");
         printf("3. Modify My Claim\n");
         printf("4. Delete My Claim\n");
         printf("0. Logout\n");
@@ -192,10 +327,10 @@ void clientMenu() {
 
         switch (choice) {
             case 1:
-                // addClaim(clientName);
+                 Ajout_reclamation();
                 break;
             case 2:
-                // viewMyClaims(clientName);
+                affiche_reclamations();
                 break;
             case 3:
                 // modifyMyClaim(clientName);
@@ -211,19 +346,50 @@ void clientMenu() {
         }
     } while (choice != 0);
 }
+void traiter_reclamation(){
+  int ID;
+  int choix;
+  printf("entrer l'ID de la reclamation à traiter :");
+  scanf("%d",&ID);
+   for(int i =0;i<claimCount;i++){
+    if(ID==claims[i].id){
+        printf("\n1.reclamation en cours de traitement.\n");
+        printf("2.reclamation resolue.\n");
+        printf("3.reclamation rejetée.\n");
+        printf("votre choix :");
+        scanf("%d",&choix);
+        switch(choix){
+        case 1:
+            strcpy(claims[i].status,"en cours");
+            break;
+        case 2:
+            strcpy(claims[i].status,"resole");
+            break;
+        case 3:
+            strcpy(claims[i].status,"rejetée");
+            break;
+        default:
+            printf("choix invalide.\n");
+        }
+        printf("ajouter une note concernant le traitement:");
+        scanf(" %[^\n]",&claims[i].notes);
+    }
+   }
+}
 
 void adminMenu() {
     int choice;
     do {
         printf("\n========== Admin Menu ==========\n");
         printf("1. Gerer les roles des utilisateurs\n");
-        printf("2. Afficher la liste des réclamations\n");
-        printf("3. Modifier une réclamation\n");
-        printf("4. Supprimer une réclamation\n");
-        printf("5. Traiter une réclamation\n");
-        printf("6. Rechercher une réclamation\n");
-        printf("7. Afficher les réclamations ordonnées par priorité\n");
-        printf("8. Traiter une réclamation\n");
+        printf("2. Ajouter la liste des reclamations\n");
+        printf("3. Afficher la liste des reclamations\n");
+        printf("4. Modifier une reclamation\n");
+        printf("5. Supprimer une reclamation\n");
+        printf("6. Traiter une reclamation\n");
+        printf("7. Rechercher une reclamation\n");
+        printf("8. Afficher les reclamations ordonnées par priorite\n");
+        printf("9. Traiter une reclamation\n");
         printf("0. Logout\n");
         printf("Enter your choice: ");
         scanf("%d", &choice);
@@ -234,10 +400,26 @@ void adminMenu() {
                 generer_role();
                 break;
             case 2:
+                Ajout_reclamation();
                 break;
             case 3:
+                affiche_reclamations();
                 break;
             case 4:
+                modifier_reclamation();
+                break;
+            case 5:
+                supprimer_reclamation();
+                break;
+            case 6:
+                traiter_reclamation();
+                break;
+            case 7:
+
+                break;
+            case 8:
+                break;
+            case 9:
                 break;
             case 0:
                 printf("Logging out as Admin...\n");
@@ -286,7 +468,6 @@ void connexion_agent(){
     printf("Veuillez patienter 10 secondes avant de réessayer...\n");
     sleep(10);
 }
-
 
 
 int main() {
