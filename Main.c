@@ -15,6 +15,7 @@ typedef struct {
     char status[20];
     char date[20];
     char notes[100];
+    char periorite[100];
 } reclamation;
 
 typedef struct {
@@ -376,6 +377,51 @@ void traiter_reclamation(){
     }
    }
 }
+void trie_periorite(){
+     char *HauteKeywords[3] = {"instantané", "instantané", "décisif", NULL};
+     char *MeduimKeywords[3]= {"essentiel", "requis", "standard", NULL};
+     for (int i = 0; i < claimCount; i++) {
+        int prioritindice = 0;
+        for (int j = 0; j < 3 && HauteKeywords[j] != NULL; j++) {
+            if (strstr(claims[i].description, HauteKeywords[j]) != NULL) {
+                strcpy(claims[i].periorite, "haute");
+                prioritindice = 1;
+                break;
+            }
+        }
+
+            for (int j = 0; j < 3 && MeduimKeywords[j] != NULL; j++) {
+            if (strstr(claims[i].description, MeduimKeywords[j]) != NULL) {
+                strcpy(claims[i].periorite, "Moyenne");
+                prioritindice = 2;
+                break;
+            }
+        }
+          if (!prioritindice) {
+            strcpy(claims[i].periorite, "basse");
+        }
+    }
+    for (int i = 0; i < claimCount - 1; i++) {
+        for (int j = i + 1; j < claimCount; j++) {
+            if (strcmp(claims[i].periorite, claims[j].periorite) > 0) {
+                reclamation  temp = claims[i];
+                claims[i] = claims[j];
+                claims[j] = temp;
+            }
+        }
+    }
+        printf("\n==================== Liste des Réclamations ====================\n");
+    for (int i = 0; i < claimCount; i++) {
+        printf("ID: %d\n", claims[i].id);
+        printf("Motif: %s\n", claims[i].Motif);
+        printf("Description: %s\n", claims[i].description);
+        printf("Catégorie: %s\n", claims[i].categorie);
+        printf("Statut: %s\n", claims[i].status);
+        printf("Date: %s\n", claims[i].date);
+        printf("Notes: %s\n",claims[i].notes);
+        printf("---------------------------------------------------------------\n");
+    }
+}
 
 void adminMenu() {
     int choice;
@@ -389,7 +435,6 @@ void adminMenu() {
         printf("6. Traiter une reclamation\n");
         printf("7. Rechercher une reclamation\n");
         printf("8. Afficher les reclamations ordonnées par priorite\n");
-        printf("9. Traiter une reclamation\n");
         printf("0. Logout\n");
         printf("Enter your choice: ");
         scanf("%d", &choice);
@@ -418,6 +463,7 @@ void adminMenu() {
 
                 break;
             case 8:
+                trie_periorite();
                 break;
             case 9:
                 break;
