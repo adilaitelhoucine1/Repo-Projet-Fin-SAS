@@ -390,7 +390,7 @@ int prioriteIndex(char *priorite) {
 }
 
 void attribuerPriorite(reclamation *claim) {
-    if (strstr(claim->description, "urgent") != NULL || strstr(claim->description, "immédiat") != NULL) {
+    if (strstr(claim->description, "urgent") != NULL || strstr(claim->description, "immediat") != NULL) {
         strcpy(claim->periorite, "haute");
     } else if (strstr(claim->description, "important") != NULL) {
         strcpy(claim->periorite, "moyenne");
@@ -420,7 +420,7 @@ void trierReclamationsParPriorite() {
         }
     }
 
-    printf("Réclamations triées par priorité avec succès.\n");
+    printf("Reclamations triees par priorite avec succes.\n");
 }
 
 void afficherReclamationsTriees() {
@@ -437,40 +437,40 @@ void rechercher_reclamation() {
     printf("2. Motif\n");
     printf("Entrez votre choix: ");
     scanf("%d", &choix);
-    getchar(); // Pour consommer le retour à la ligne
+    getchar();
 
     if (choix == 1) {
-        printf("Entrez l'ID de la réclamation: ");
+        printf("Entrez l'ID de la reclamation: ");
         scanf("%d", &id);
-        int found = 0;
+        int idfound = 0;
 
         for (int i = 0; i < claimCount; i++) {
             if (claims[i].id == id) {
-                printf("\nRéclamation trouvée:\n");
+                printf("\n--Reclamation trouvee--:\n");
                 printf("ID: %d\n", claims[i].id);
                 printf("Motif: %s\n", claims[i].Motif);
                 printf("Description: %s\n", claims[i].description);
-                printf("Catégorie: %s\n", claims[i].categorie);
+                printf("Categorie: %s\n", claims[i].categorie);
                 printf("Statut: %s\n", claims[i].status);
                 printf("Date: %s\n", claims[i].date);
                 printf("Notes: %s\n", claims[i].notes);
-                found = 1;
+                idfound = 1;
                 break;
             }
         }
 
-        if (!found) {
-            printf("Aucune réclamation trouvée avec l'ID %d.\n", id);
+        if (!idfound) {
+            printf("-!- Aucune reclamation trouvee cet ID -!- .\n");
         }
 
     } else if (choix == 2) {
-        printf("Entrez le motif de la réclamation: ");
+        printf("Entrez le motif de la reclamation: ");
         scanf(" %[^\n]", motif);
-        int found = 0;
+        int motiffound = 0;
 
         for (int i = 0; i < claimCount; i++) {
             if (strcmp(claims[i].Motif, motif) == 0) {
-                printf("\nRéclamation trouvée:\n");
+                printf("\n--Reclamation trouvee--:\n");
                 printf("ID: %d\n", claims[i].id);
                 printf("Motif: %s\n", claims[i].Motif);
                 printf("Description: %s\n", claims[i].description);
@@ -478,21 +478,18 @@ void rechercher_reclamation() {
                 printf("Statut: %s\n", claims[i].status);
                 printf("Date: %s\n", claims[i].date);
                 printf("Notes: %s\n", claims[i].notes);
-                found = 1;
+                motiffound = 1;
             }
         }
 
-        if (!found) {
-            printf("Aucune réclamation trouvée avec le motif \"%s\".\n", motif);
+        if (!motiffound) {
+            printf("-!- Aucune reclamation trouvee avec ce Motif -!-\n");
         }
 
     } else {
-        printf("Choix invalide.\n");
+        printf("-!- Choix invalide -!- \n");
     }
 }
-
-
-
 
 void adminMenu() {
     int choice;
