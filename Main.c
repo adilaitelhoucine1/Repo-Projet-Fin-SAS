@@ -16,6 +16,7 @@ typedef struct {
     char date[20];
     char notes[100];
     char periorite[100];
+    char username[60]
 } reclamation;
 
 typedef struct {
@@ -194,14 +195,18 @@ void Ajout_reclamation() {
     printf("Entrer La Categorie : \n");
     scanf(" %[^\n]", newreclamation.categorie);
 
-    strcpy (newreclamation.status,"en Attent");
-    strcpy (newreclamation.notes," Auncune Note A affiche \n");
+    strcpy(newreclamation.status, "en Attent");
+    strcpy(newreclamation.notes, "Aucune Note A affiche \n");
 
+    // Ajout de la date
     time_t t = time(NULL);
     struct tm tm = *localtime(&t);
     strftime(newreclamation.date, sizeof(newreclamation.date), "%d-%m-%Y %H:%M:%S", &tm);
 
-    // Ajouter la nouvelle reclamation au tableau
+    // Assigner la priorité
+    attribuerPriorite(&newreclamation);
+
+    // Ajouter la nouvelle réclamation au tableau
     if (claimCount < MAX_CLAIMS) {
         claims[claimCount] = newreclamation;
         claimCount++;
@@ -210,6 +215,7 @@ void Ajout_reclamation() {
         printf("Erreur : Limite de réclamations atteinte.\n");
     }
 }
+
 
 void affiche_reclamations() {
     if (claimCount == 0) {
@@ -377,64 +383,129 @@ void traiter_reclamation(){
     }
    }
 }
-void trie_periorite(){
-     char *HauteKeywords[3] = {"instantané", "instantané", "décisif", NULL};
-     char *MeduimKeywords[3]= {"essentiel", "requis", "standard", NULL};
-     for (int i = 0; i < claimCount; i++) {
-        int prioritindice = 0;
-        for (int j = 0; j < 3 && HauteKeywords[j] != NULL; j++) {
-            if (strstr(claims[i].description, HauteKeywords[j]) != NULL) {
-                strcpy(claims[i].periorite, "haute");
-                prioritindice = 1;
+int prioriteIndex(char *priorite) {
+    if (strcmp(priorite, "haute") == 0) return 1;
+    if (strcmp(priorite, "moyenne") == 0) return 2;
+    return 3; // "basse"
+}
+
+void attribuerPriorite(reclamation *claim) {
+    if (strstr(claim->description, "urgent") != NULL || strstr(claim->description, "immédiat") != NULL) {
+        strcpy(claim->periorite, "haute");
+    } else if (strstr(claim->description, "important") != NULL) {
+        strcpy(claim->periorite, "moyenne");
+    } else {
+        strcpy(claim->periorite, "basse");
+    }
+}
+
+void trierReclamationsParPriorite() {
+    int i, j, minIndex;
+    reclamation temp;
+
+    for (i = 0; i < claimCount - 1; i++) {
+        minIndex = i;
+        for (j = i + 1; j < claimCount; j++) {
+            // Comparer les priorités par index
+            if (prioriteIndex(claims[j].periorite) < prioriteIndex(claims[minIndex].periorite)) {
+                minIndex = j;
+            }
+        }
+
+        // Échanger les réclamations si nécessaire
+        if (minIndex != i) {
+            temp = claims[i];
+            claims[i] = claims[minIndex];
+            claims[minIndex] = temp;
+        }
+    }
+
+    printf("Réclamations triées par priorité avec succès.\n");
+}
+
+void afficherReclamationsTriees() {
+    trierReclamationsParPriorite();
+    affiche_reclamations(); // Appelle la fonction existante pour afficher les réclamations
+}
+void rechercher_reclamation() {
+    int id;
+    char motif[100];
+    int choix;
+
+    printf("Voulez-vous rechercher par:\n");
+    printf("1. ID\n");
+    printf("2. Motif\n");
+    printf("Entrez votre choix: ");
+    scanf("%d", &choix);
+    getchar(); // Pour consommer le retour à la ligne
+
+    if (choix == 1) {
+        printf("Entrez l'ID de la réclamation: ");
+        scanf("%d", &id);
+        int found = 0;
+
+        for (int i = 0; i < claimCount; i++) {
+            if (claims[i].id == id) {
+                printf("\nRéclamation trouvée:\n");
+                printf("ID: %d\n", claims[i].id);
+                printf("Motif: %s\n", claims[i].Motif);
+                printf("Description: %s\n", claims[i].description);
+                printf("Catégorie: %s\n", claims[i].categorie);
+                printf("Statut: %s\n", claims[i].status);
+                printf("Date: %s\n", claims[i].date);
+                printf("Notes: %s\n", claims[i].notes);
+                found = 1;
                 break;
             }
         }
 
-            for (int j = 0; j < 3 && MeduimKeywords[j] != NULL; j++) {
-            if (strstr(claims[i].description, MeduimKeywords[j]) != NULL) {
-                strcpy(claims[i].periorite, "Moyenne");
-                prioritindice = 2;
-                break;
+        if (!found) {
+            printf("Aucune réclamation trouvée avec l'ID %d.\n", id);
+        }
+
+    } else if (choix == 2) {
+        printf("Entrez le motif de la réclamation: ");
+        scanf(" %[^\n]", motif);
+        int found = 0;
+
+        for (int i = 0; i < claimCount; i++) {
+            if (strcmp(claims[i].Motif, motif) == 0) {
+                printf("\nRéclamation trouvée:\n");
+                printf("ID: %d\n", claims[i].id);
+                printf("Motif: %s\n", claims[i].Motif);
+                printf("Description: %s\n", claims[i].description);
+                printf("Catégorie: %s\n", claims[i].categorie);
+                printf("Statut: %s\n", claims[i].status);
+                printf("Date: %s\n", claims[i].date);
+                printf("Notes: %s\n", claims[i].notes);
+                found = 1;
             }
         }
-          if (!prioritindice) {
-            strcpy(claims[i].periorite, "basse");
+
+        if (!found) {
+            printf("Aucune réclamation trouvée avec le motif \"%s\".\n", motif);
         }
-    }
-    for (int i = 0; i < claimCount - 1; i++) {
-        for (int j = i + 1; j < claimCount; j++) {
-            if (strcmp(claims[i].periorite, claims[j].periorite) > 0) {
-                reclamation  temp = claims[i];
-                claims[i] = claims[j];
-                claims[j] = temp;
-            }
-        }
-    }
-        printf("\n==================== Liste des Réclamations ====================\n");
-    for (int i = 0; i < claimCount; i++) {
-        printf("ID: %d\n", claims[i].id);
-        printf("Motif: %s\n", claims[i].Motif);
-        printf("Description: %s\n", claims[i].description);
-        printf("Catégorie: %s\n", claims[i].categorie);
-        printf("Statut: %s\n", claims[i].status);
-        printf("Date: %s\n", claims[i].date);
-        printf("Notes: %s\n",claims[i].notes);
-        printf("---------------------------------------------------------------\n");
+
+    } else {
+        printf("Choix invalide.\n");
     }
 }
+
+
+
 
 void adminMenu() {
     int choice;
     do {
         printf("\n========== Admin Menu ==========\n");
         printf("1. Gerer les roles des utilisateurs\n");
-        printf("2. Ajouter la liste des reclamations\n");
+        printf("2. Ajouter une reclamations\n");
         printf("3. Afficher la liste des reclamations\n");
         printf("4. Modifier une reclamation\n");
         printf("5. Supprimer une reclamation\n");
         printf("6. Traiter une reclamation\n");
         printf("7. Rechercher une reclamation\n");
-        printf("8. Afficher les reclamations ordonnées par priorite\n");
+        printf("8. Afficher les reclamations ordonnees par priorite\n");
         printf("0. Logout\n");
         printf("Enter your choice: ");
         scanf("%d", &choice);
@@ -460,10 +531,10 @@ void adminMenu() {
                 traiter_reclamation();
                 break;
             case 7:
-
+                rechercher_reclamation();
                 break;
             case 8:
-                trie_periorite();
+                afficherReclamationsTriees();
                 break;
             case 9:
                 break;
@@ -531,9 +602,11 @@ int main() {
     printf("||                                                          ||\n");
     printf("==============================================================\n");
     printf("Veuillez entrer votre choix: ");
-    scanf("%d", &choice);
+    int validunput=scanf("%d", &choice);
+    getchar();
 
-        switch (choice) {
+        if(validunput){
+             switch (choice) {
             case 1:
                 if (signinAsAdmin()) {
                     adminMenu();
@@ -550,13 +623,15 @@ int main() {
             case 4:
                 connexion_agent();
                 break;
-            case 0:
-                printf("Merci d'utiliser notre App !!\n");
+             case 0:
+                printf("Merci d utuliser notre application \n");
                 break;
             default:
                 printf("Choix invalide. Veuillez réessayer.\n");
         }
-    } while (choice != 0);
+        }
+
+    } while (choice != 0 );
 
     return 0;
 }
