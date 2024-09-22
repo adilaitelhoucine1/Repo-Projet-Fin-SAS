@@ -17,26 +17,77 @@ typedef struct {
     char notes[100];
     char periorite[100];
     char username[60];
+    char date_resolue[20];
+    int index_resolue; //si il est 1 alors reclama est resolue
 } reclamation;
 
 typedef struct {
     char username[20];
     char password[20];
     char email[50];
-    char role[10]; // "admin", "agent" ou "client"
+    char role[10]; // "admin", "agent","client"
 } User;
 
-/*char currentDate[20];
+
+char* obtenir_date_actuelle() {
+    // Allouer de la mémoire pour la chaîne de caractères
+    char* buffer = malloc(100 * sizeof(char));
+    if (buffer == NULL) {
+        return NULL; // Vérification de l'allocation
+    }
+
+    // Obtenir l'heure actuelle
     time_t t = time(NULL);
-    struct tm *tm_info = localtime(&t);
-    strftime(currentDate, sizeof(currentDate), "%Y-%m-%d %H:%M:%S", tm_info);*/
+    struct tm tm = *localtime(&t);
+
+    // Formater la date et l'heure actuelles
+    strftime(buffer, 100, "%d-%m-%Y %H:%M:%S", &tm);
+
+    // Retourner la chaîne de caractères
+    return buffer;
+}
+
+
+struct tm string_to_tm(const char* date_str) {
+    struct tm tm = {0};
+
+    // Extraire les valeurs de la chaîne et les stocker dans la structure tm
+    sscanf(date_str, "%d-%d-%d %d:%d:%d",
+           &tm.tm_mday, &tm.tm_mon, &tm.tm_year,
+           &tm.tm_hour, &tm.tm_min, &tm.tm_sec);
+
+    // Ajuster les valeurs pour la structure tm
+    tm.tm_year -= 1900;  // tm_year est l'année depuis 1900
+    tm.tm_mon -= 1;      // Les mois vont de 0 (janvier) à 11 (décembre)
+
+    return tm;
+}
+
+
+
+int difference_entre_dates(const char* date1_str, const char* date2_str) {
+    // Conversion des chaînes en struct tm
+    struct tm tm_date1 = string_to_tm(date1_str);
+    struct tm tm_date2 = string_to_tm(date2_str);
+
+    // Conversion en time_t (nombre de secondes depuis Epoch)
+    time_t time1 = mktime(&tm_date1);
+    time_t time2 = mktime(&tm_date2);
+
+    // Calcul de la différence en secondes
+    return difftime(time2, time1);
+}
+
 
 User users[MAX_USERS];
 int userCount = 0;
 int nombre_reclama_resolue=0;
 reclamation claims[MAX_CLAIMS];
-char Date_de_resolutoin[20];
+int diff__reclama_resolu[MAX_CLAIMS];
 int claimCount = 0;
+int differences[MAX_CLAIMS]; // Pour stocker les différences
+int differenceCount = 0; // Pour suivre le nombre de différences stockées
+
 int ValiderNom(char *nom) {
     for (int i = 0; i < strlen(nom); i++) {
         if (!isalpha(nom[i]) && nom[i] != ' ') {
@@ -185,6 +236,7 @@ void Ajout_reclamation_client(char *username) {
     srand(time(NULL));
     reclamation newreclamation;
     newreclamation.id = rand() % 100 + 1;
+    newreclamation.index_resolue=0;
 
     printf("Entrer Le Motif : \n");
     scanf(" %[^\n]", newreclamation.Motif);
@@ -210,9 +262,9 @@ void Ajout_reclamation_client(char *username) {
     if (claimCount < MAX_CLAIMS) {
         claims[claimCount] = newreclamation;
         claimCount++;
-        printf("Réclamation ajoutée avec succès.\n");
+        printf("Réclamation ajoutee avec succes.\n");
     } else {
-        printf("Erreur : Limite de réclamations atteinte.\n");
+        printf("Erreur : Limite de reclamations atteinte.\n");
     }
 }
 void Ajout_reclamation_All() {
@@ -287,6 +339,7 @@ void affiche_reclamations_All() {
             printf("Statut: %s\n", claims[i].status);
             printf("Date: %s\n", claims[i].date);
             printf("Notes: %s\n", claims[i].notes);
+            printf("Fait par : %s\n", claims[i].username);
             printf("---------------------------------------------------------------\n");
         }
 
@@ -299,54 +352,11 @@ void modifier_reclamation_client(char *username) {
 
     for (int i = 0; i < claimCount; i++) {
         if (claims[i].id == id && strcmp(claims[i].username, username) == 0) { // Vérifie que l'utilisateur est le propriétaire
-         /*  if(Diff_time(char *currentDate,char *claims[i].date)>10){*/
-
-
+        if(difference_entre_dates(claims[i].date,obtenir_date_actuelle())<10){ // jai tester 10 second
             printf("Réclamation trouvée:\n");
             printf("Motif: %s\n", claims[i].Motif);
             printf("Description: %s\n", claims[i].description);
-            printf("Catégorie: %s\n", claims[i].categorie);
-            printf("Statut: %s\n", claims[i].status);
-            printf("Date: %s\n", claims[i].date);
-
-            // Demander les nouvelles infos
-            char nouveauMotif[100];
-            printf("Entrez le nouveau motif: ");
-            scanf(" %[^\n]", nouveauMotif);
-            strcpy(claims[i].Motif, nouveauMotif);
-
-            char nouvelleDescription[255];
-            printf("Entrez la nouvelle description: ");
-            scanf(" %[^\n]", nouvelleDescription);
-            strcpy(claims[i].description, nouvelleDescription);
-
-            char nouvelleCategorie[50];
-            printf("Entrez la nouvelle catégorie: ");
-            scanf(" %[^\n]", nouvelleCategorie);
-            strcpy(claims[i].categorie, nouvelleCategorie);
-
-            printf("Reclamation modifiee avec succès.\n");
-            return;
-        }
-        /*}else{
-                printf("Vous passer 10s");
-            }*/
-    }
-
-    printf("Réclamation non trouvée ou vous n'êtes pas le propriétaire.\n");
-}
-void modifier_reclamation_All() {
-
-    int id;
-    printf("Entrez l'ID de la reclamation à modifier: ");
-    scanf("%d", &id);
-
-    for (int i = 0; i < claimCount; i++) {
-          if(claims[i].id==id){
-            printf("Réclamation trouvée:\n");
-            printf("Motif: %s\n", claims[i].Motif);
-            printf("Description: %s\n", claims[i].description);
-            printf("Catégorie: %s\n", claims[i].categorie);
+            printf("Categorie: %s\n", claims[i].categorie);
             printf("Statut: %s\n", claims[i].status);
             printf("Date: %s\n", claims[i].date);
 
@@ -369,8 +379,52 @@ void modifier_reclamation_All() {
             printf("Reclamation modifiee avec succès.\n");
             return;
         }else{
-            printf("Erreur : Reclamation avec l'ID %d non trouvee.\n", id);
+                printf("ksn ta9mot at tkml lo9t nk  a khali");
+                return;
+        }
     }
+
+    printf("Reclamation non trouvee ou vous n'etes pas le proprietaire.\n");
+}
+}
+void modifier_reclamation_All() {
+
+    int id;
+    printf("Entrez l'ID de la reclamation à modifier: ");
+    scanf("%d", &id);
+
+    for (int i = 0; i < claimCount; i++) {
+        if(claims[i].id==id){
+
+            printf("Réclamation trouvée:\n");
+            printf("Motif: %s\n", claims[i].Motif);
+            printf("Description: %s\n", claims[i].description);
+            printf("Catégorie: %s\n", claims[i].categorie);
+            printf("Statut: %s\n", claims[i].status);
+            printf("Date: %s\n", claims[i].date);
+
+            // Demander les nouvelles infos
+            char nouveauMotif[100];
+            printf("Entrez le nouveau motif: ");
+            scanf(" %[^\n]", nouveauMotif);
+            strcpy(claims[i].Motif, nouveauMotif);
+
+            char nouvelleDescription[255];
+            printf("Entrez la nouvelle description: ");
+            scanf(" %[^\n]", nouvelleDescription);
+            strcpy(claims[i].description, nouvelleDescription);
+
+            char nouvelleCategorie[50];
+            printf("Entrez la nouvelle catégorie: ");
+            scanf(" %[^\n]", nouvelleCategorie);
+            strcpy(claims[i].categorie, nouvelleCategorie);
+
+            printf("Reclamation modifiee avec succès.\n");
+            return;
+
+    }else{
+            printf("Erreur : Reclamation avec l'ID %d non trouvee.\n", id);
+         }
     }
 }
 
@@ -450,11 +504,11 @@ void clientMenu(char *username) {
     int choice;
     do {
         printf("\n----------- Menu Client -----------\n");
-        printf("1. Ajouter une réclamation\n");
-        printf("2. Afficher mes réclamations\n");
-        printf("3. Modifier une réclamation\n");
-        printf("4. Supprimer une réclamation\n");
-        printf("0. Déconnexion\n");
+        printf("1. Ajouter une reclamation\n");
+        printf("2. Afficher mes reclamations\n");
+        printf("3. Modifier une reclamation\n");
+        printf("4. Supprimer une reclamation\n");
+        printf("0. Deconnexion\n");
         printf("Entrez votre choix: ");
         scanf("%d", &choice);
 
@@ -472,57 +526,59 @@ void clientMenu(char *username) {
                 supprimer_reclamation_client(username);
                 break;
             case 0:
-                printf("Déconnexion réussie.\n");
+                printf("Deconnexion reussie.\n");
                 break;
             default:
-                printf("Choix invalide. Veuillez réessayer.\n");
+                printf("Choix invalide. Veuillez reessayer.\n");
         }
     } while (choice != 0);
 }
 
-void traiter_reclamation(){
+void traiter_reclamation() {
+    int ID;
+    int choix;
+    printf("Entrez l'ID de la réclamation a traiter : ");
+    scanf("%d", &ID);
 
-  int ID;
-  int choix;
-  printf("entrer l'ID de la reclamation a traiter :");
-  scanf("%d",&ID);
-   for(int i =0;i<claimCount;i++){
-    if(ID==claims[i].id){
-        printf("\n1.En cours.\n");
-        printf("2.Resolue.\n");
-        printf("3.Rejetee.\n");
-        printf("votre choix :");
-        scanf("%d",&choix);
-        switch(choix){
-        case 1:
-            strcpy(claims[i].status,"en cours");
-            break;
-        case 2:
-            strcpy(claims[i].status,"resole");
-            nombre_reclama_resolue++;
+    for (int i = 0; i < claimCount; i++) {
+        if (ID == claims[i].id) {
+            printf("\n1. En cours.\n");
+            printf("2. Résolue.\n");
+            printf("3. Rejetée.\n");
+            printf("Votre choix : ");
+            scanf("%d", &choix);
 
+            switch (choix) {
+                case 1:
+                    strcpy(claims[i].status, "en cours");
+                    break;
+                case 2:
+                    strcpy(claims[i].status, "résolue");
+                    nombre_reclama_resolue++;
+                    time_t t = time(NULL);
+                    struct tm tm = *localtime(&t);
+                    strftime(claims[i].date_resolue, sizeof(claims[i].date_resolue), "%d-%m-%Y %H:%M:%S", &tm);
+                    claims[i].index_resolue = 1;
 
+                    // Calcul de la différence et le stocker dans tab
+                    differences[differenceCount] = difference_entre_dates(claims[i].date, claims[i].date_resolue);
+                    differenceCount++;
+                    break;
+                case 3:
+                    strcpy(claims[i].status, "rejetee");
+                    break;
+                default:
+                    printf("Choix invalide.\n");
+            }
 
-        time_t t = time(NULL);
-        struct tm tm = *localtime(&t);
-
-
-        strftime(Date_de_resolutoin, sizeof(Date_de_resolutoin), "%d-%m-%Y %H:%M:%S", &tm);
-
-
-
-            break;
-        case 3:
-            strcpy(claims[i].status,"rejetée");
-            break;
-        default:
-            printf("choix invalide.\n");
+            printf("Ajouter une note concernant le traitement : ");
+            scanf(" %[^\n]", claims[i].notes);
+            return;
         }
-        printf("ajouter une note concernant le traitement:");
-        scanf(" %[^\n]",&claims[i].notes);
     }
-   }
+    printf("Reclamation avec l'ID %d non trouvée.\n", ID);
 }
+
 int prioriteIndex(char *priorite) {
 
     if (strcmp(priorite, "haute") == 0) return 1;
@@ -633,15 +689,27 @@ void rechercher_reclamation() {
 }
 
 
-void Statistiques_Rapports(){
+void Statistiques_Rapports() {
+    int somme = 0;
+    float moyenne;
 
+    printf("\n========== Statistiques & Rapports ==========\n");
+    printf("Le nombre total de réclamations est %d\n", claimCount);
+    printf("Le taux de résolution des réclamations est %d / %d\n", nombre_reclama_resolue, claimCount);
 
-        printf("\n========== Statistiques & Rapports ==========\n");
-        printf(" le nombre total de reclamations est %d \n",claimCount);
-        float taux=(nombre_reclama_resolue*100)/claimCount;
-        printf(" le taux de resolution des reclamations est %.2f % M\n",taux);
-        printf(" délai moyen de traitement des reclamations \n");
-        printf("\n=============================================\n");
+    // Calcul de la somme des différences
+    for (int i = 0; i < differenceCount; i++) {
+        somme += differences[i];
+    }
+
+    if (nombre_reclama_resolue != 0) {
+        moyenne = (float)somme / nombre_reclama_resolue; // Calcul de la moyenne
+        printf("Délai moyen de traitement des réclamations est %.2f secondes\n", moyenne);
+    } else {
+        printf("Aucune réclamation résolue\n");
+    }
+
+    printf("\n=============================================\n");
 }
 
 int Diff_time(char *date1, char *date2) {
