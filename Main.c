@@ -7,6 +7,9 @@
 #define MAX_USERS 100
 #define MAX_CLAIMS 100
 
+void printTab(){
+	printf("\t\t\t\t\t");
+}
 typedef struct {
     int id;
     char Motif[100];
@@ -27,6 +30,94 @@ typedef struct {
     char email[50];
     char role[10]; // "admin", "agent","client"
 } User;
+
+#include <stdio.h>
+#include <stdlib.h>
+#include <unistd.h>  // for sleep function
+#include <windows.h> // for system colors (only works on Windows)
+
+
+
+void error404(){
+
+	system("color 4");
+	printf("\n\n\n\n\n\n\n");
+printTab();	printf("  ______                                  _  _      ___    _  _   \n");
+printTab();	printf(" |  ____|                                | || |    / _ \\  | || |  \n");
+printTab();	printf(" | |__     _ __   _ __    ___    _ __    | || |_  | | | | | || |_ \n");
+printTab();	printf(" |  __|   | '__| | '__|  / _ \\  | '__|   |__   _| | | | | |__   _|\n");
+printTab();	printf(" | |____  | |    | |    | (_) | | |         | |   | |_| |    | |  \n");
+printTab();	printf(" |______| |_|    |_|     \\___/  |_|         |_|    \\___/     |_|  \n");
+
+	sleep(2);
+
+
+
+
+    system("color 07"); // Default white text, black background
+}
+
+
+void effacer_console() {
+    system("cls"); // Efface l'écran sous Windows
+}
+
+
+void effet_texte(const char* texte) {
+    for (int i = 0; texte[i] != '\0'; i++) {
+        printf("%c", texte[i]);
+        fflush(stdout); // Force l'affichage immédiat du caractère
+        Sleep(1); // Pause de 50 millisecondes entre chaque lettre
+    }
+}
+
+void afficher_ascii_art() {
+    const char* message =
+    "$$$$$$$\\  $$\\                                                                                                                    $$\\ $$\\                   $$\\     $$\\                                 \n"
+    "$$  __$$\\ \\__|                                                                                                                   $$ |\\__|                  $$ |    \\__|                                \n"
+    "$$ |  $$ |$$\\  $$$$$$\\  $$$$$$$\\$$\\    $$\\  $$$$$$\\  $$$$$$$\\  $$\\   $$\\  $$$$$$\\                   $$$$$$\\   $$$$$$\\   $$$$$$\\  $$ |$$\\  $$$$$$$\\$$$$$$$\\$$$$$$$\\   $$\\  $$$$$$\\  $$$$$$$\\              \n"
+    "$$$$$$$$ |$$ |$$  __$$\\ $$  __$$\\$$\\  $$  |$$  __$$\\ $$  __$$\\ $$ |  $$ |$$  __$$\\                  \\____$$\\ $$  __$$\\ $$  __$$\\ $$ |$$ |$$  _____\\____$$\\_$$  _|  $$ |$$  __$$\\ $$  __$$\\            \n"
+    "$$  __$$\\ $$ |$$$$$$$$ |$$ |  $$ \\$$\\$$  / $$$$$$$$ |$$ |  $$ |$$ |  $$ |$$$$$$$$ |                 $$$$$$$ |$$ /  $$ |$$ /  $$ |$$ |$$ |$$ /     $$$$$$$ |$$ |    $$ |$$ /  $$ |$$ |  $$ |           \n"
+    "$$ |  $$ |$$ |$$   ____|$$ |  $$ |\\$$$  /  $$   ____|$$ |  $$ |$$ |  $$ |$$   ____|                $$  __$$ |$$ |  $$ |$$ |  $$ |$$ |$$ |$$ |    $$  __$$ |$$ |$$\\ $$ |$$ |  $$ |$$ |  $$ |           \n"
+    "$$$$$$$  |$$ |\\$$$$$$$\\ $$ |  $$ | \\$  /   \\$$$$$$$\\ $$ |  $$ |\\$$$$$$  |\\$$$$$$$\\                 \\$$$$$$$ |$$$$$$$  |$$$$$$$  |$$ |$$ |\\$$$$$$$\\$$$$$$$ |\\$$$$  |$$ |\\$$$$$$  |$$ |  $$ |           \n"
+    "\\_______/ \\__| \\_______|\\__|  \\__|  \\_/     \\_______|\\__|  \\__| \\______/  \\_______|                 \\_______|$$  ____/ $$  ____/ \\__|\\__| \\_______\\_______| \\____/ \\__| \\______/ \\__|  \\__|           \n"
+    "                                                                                                             $$ |      $$ |                                                                            \n"
+    "                                                                                                             $$ |      $$ |                                                                            \n"
+    "                                                                                                             \\__|      \\__|                                                                            \n"
+    "      $$\\                                               $$\\     $$\\                                                                                                                                    \n"
+    "      $$ |                                              $$ |    \\__|                                                                                                                                  \n"
+    " $$$$$$$ | $$$$$$\\         $$$$$$\\   $$$$$$\\  $$$$$$$\\$$$$$$\\   $$\\  $$$$$$\\  $$$$$$$\\                                                                                                                 \n"
+    "$$  __$$ |$$  __$$\\       $$  __$$\\ $$  __$$\\$$  _____\\_$$  _|  $$ |$$  __$$\\ $$  __$$\\                                                                                                                \n"
+    "$$ /  $$ |$$$$$$$$ |      $$ /  $$ |$$$$$$$$ \\$$$$$$\\   $$ |    $$ |$$ /  $$ |$$ |  $$ |                                                                                                               \n"
+    "$$ |  $$ |$$   ____|      $$ |  $$ |$$   ____|\\____$$\\  $$ |$$\\ $$ |$$ |  $$ |$$ |  $$ |                                                                                                               \n"
+    "\\$$$$$$$ |\\$$$$$$$\\       \\$$$$$$$ |\\$$$$$$$\\$$$$$$$  | \\$$$$  |$$ |\\$$$$$$  |$$ |  $$ |                                                                                                               \n"
+    " \\_______| \\_______|       \\____$$ | \\_______\\_______/   \\____/ \\__| \\______/ \\__|  \\__|                                                                                                               \n"
+    "                          $$\\   $$ |                                                                                                                                                                 \n"
+    "                          \\$$$$$$  |                                                                                                                                                                 \n"
+    "                           \\______/                                                                                                                                                                    \n"
+    "      $$\\                                    $$$$$$$\\                      $$\\                                   $$\\     $$\\                                                                           \n"
+    "      $$ |                                   $$  __$$\\                     $$ |                                  $$ |    \\__|                                                                          \n"
+    " $$$$$$$ | $$$$$$\\  $$$$$$$\\                 $$ |  $$ | $$$$$$\\   $$$$$$$\\ $$ | $$$$$$\\  $$$$$$\\$$$$\\   $$$$$$\\$$$$$$\\   $$\\  $$$$$$\\  $$$$$$$\\   $$$$$$$\\                                             \n"
+    "$$  __$$ |$$  __$$\\$$  _____|                $$$$$$$  |$$  __$$\\ $$  _____|$$ | \\____$$\\ $$  _$$  _$$\\  \\____$$\\_$$  _|  $$ |$$  __$$\\ $$  __$$\\ $$  _____|                                            \n"
+    "$$ /  $$ |$$$$$$$$ \\$$$$$$\\                  $$  __$$< $$$$$$$$ |$$ /      $$ | $$$$$$$ |$$ / $$ / $$ | $$$$$$$ |$$ |    $$ |$$ /  $$ |$$ |  $$ |\\$$$$$$\\                                              \n"
+    "$$ |  $$ |$$   ____|\\____$$\\                 $$ |  $$ |$$   ____|$$ |      $$ |$$  __$$ |$$ | $$ | $$ |$$  __$$ |$$ |$$\\ $$ |$$ |  $$ |$$ |  $$ | \\____$$\\                                             \n"
+    "\\$$$$$$$ |\\$$$$$$$\\$$$$$$$  |                $$ |  $$ |\\$$$$$$$\\ \\$$$$$$$\\ $$ |\\$$$$$$$ |$$ | $$ | $$ |\\$$$$$$$ |\\$$$$  |$$ |\\$$$$$$  |$$ |  $$ |$$$$$$$  |                                            \n"
+    " \\_______| \\_______|\\_______/                 \\__|  \\__| \\_______| \\_______|\\__| \\_______|\\__| \\__| \\__| \\_______| \\____/ \\__| \\______/ \\__|  \\__|\\_______/                                             \n"
+    "";
+
+    effet_texte(message);
+}
+
+void afficher_intro() {
+    system("cls"); // Effacer l'écran
+    afficher_ascii_art();
+    Sleep(50);
+    effet_texte("Gestion de Reclamations\n");
+    Sleep(50);
+    system("cls"); // Effacer l'écran
+}
+
+
 
 
 char* obtenir_date_actuelle() {
@@ -202,7 +293,7 @@ void connexion() {
         }
 
         count++;
-        printf("\nAttention il vous reste %d tentative(s)\n", (3 - count) + 1);
+        printf("\n Attention il vous reste %d tentative(s)\n", (3 - count) + 1);
     }
 
     printf("\nErreur !! Mot de passe incorrect 3 fois\n");
@@ -248,7 +339,7 @@ void Ajout_reclamation_client(char *username) {
     scanf(" %[^\n]", newreclamation.categorie);
 
     strcpy(newreclamation.status, "en Attent");
-    strcpy(newreclamation.notes, "Aucune Note A affiche \n");
+    strcpy(newreclamation.notes, "Aucune Note A affiche");
 
 
     time_t t = time(NULL);
@@ -262,7 +353,7 @@ void Ajout_reclamation_client(char *username) {
     if (claimCount < MAX_CLAIMS) {
         claims[claimCount] = newreclamation;
         claimCount++;
-        printf("Réclamation ajoutee avec succes.\n");
+        printf("Reclamation ajoutee avec succes.\n");
     } else {
         printf("Erreur : Limite de reclamations atteinte.\n");
     }
@@ -296,9 +387,9 @@ void Ajout_reclamation_All() {
     if (claimCount < MAX_CLAIMS) {
         claims[claimCount] = newreclamation;
         claimCount++;
-        printf("Réclamation ajoutée avec succès.\n");
+        printf("Réclamation ajoutee avec succes.\n");
     } else {
-        printf("Erreur : Limite de réclamations atteinte.\n");
+        printf("Erreur : Limite de reclamations atteinte.\n");
     }
 }
 void affiche_reclamations_client(char *username) {
@@ -335,7 +426,7 @@ void affiche_reclamations_All() {
             printf("ID: %d\n", claims[i].id);
             printf("Motif: %s\n", claims[i].Motif);
             printf("Description: %s\n", claims[i].description);
-            printf("Catégorie: %s\n", claims[i].categorie);
+            printf("Categorie: %s\n", claims[i].categorie);
             printf("Statut: %s\n", claims[i].status);
             printf("Date: %s\n", claims[i].date);
             printf("Notes: %s\n", claims[i].notes);
@@ -347,13 +438,13 @@ void affiche_reclamations_All() {
 void modifier_reclamation_client(char *username) {
 
     int id;
-    printf("Entrez l'ID de la reclamation à modifier: ");
+    printf("Entrez l'ID de la reclamation a modifier: ");
     scanf("%d", &id);
 
     for (int i = 0; i < claimCount; i++) {
         if (claims[i].id == id && strcmp(claims[i].username, username) == 0) { // Vérifie que l'utilisateur est le propriétaire
         if(difference_entre_dates(claims[i].date,obtenir_date_actuelle())<10){ // jai tester 10 second
-            printf("Réclamation trouvée:\n");
+            printf("Reclamation trouvée:\n");
             printf("Motif: %s\n", claims[i].Motif);
             printf("Description: %s\n", claims[i].description);
             printf("Categorie: %s\n", claims[i].categorie);
@@ -372,14 +463,14 @@ void modifier_reclamation_client(char *username) {
             strcpy(claims[i].description, nouvelleDescription);
 
             char nouvelleCategorie[50];
-            printf("Entrez la nouvelle catégorie: ");
+            printf("Entrez la nouvelle categorie: ");
             scanf(" %[^\n]", nouvelleCategorie);
             strcpy(claims[i].categorie, nouvelleCategorie);
 
-            printf("Reclamation modifiee avec succès.\n");
+            printf("Reclamation modifiee avec succes.\n");
             return;
         }else{
-                printf("ksn ta9mot at tkml lo9t nk  a khali");
+                printf("Vous avez passer le delai de modification ( 24 h)\n");
                 return;
         }
     }
@@ -396,7 +487,7 @@ void modifier_reclamation_All() {
     for (int i = 0; i < claimCount; i++) {
         if(claims[i].id==id){
 
-            printf("Réclamation trouvée:\n");
+            printf("Reclamation trouvee:\n");
             printf("Motif: %s\n", claims[i].Motif);
             printf("Description: %s\n", claims[i].description);
             printf("Catégorie: %s\n", claims[i].categorie);
@@ -415,11 +506,11 @@ void modifier_reclamation_All() {
             strcpy(claims[i].description, nouvelleDescription);
 
             char nouvelleCategorie[50];
-            printf("Entrez la nouvelle catégorie: ");
+            printf("Entrez la nouvelle categorie: ");
             scanf(" %[^\n]", nouvelleCategorie);
             strcpy(claims[i].categorie, nouvelleCategorie);
 
-            printf("Reclamation modifiee avec succès.\n");
+            printf("Reclamation modifiee avec succes.\n");
             return;
 
     }else{
@@ -434,7 +525,7 @@ void supprimer_reclamation_client(char *username) {
         printf("Aucune Reclamation a Supprimer\n");
         return ;
     }
-    printf("Entrez l'ID de la réclamation à supprimer: ");
+    printf("Entrez l'ID de la reclamation à supprimer: ");
     scanf("%d", &id);
 
     int found = 0;
@@ -460,7 +551,7 @@ void supprimer_reclamation_All() {
         printf("Aucune Reclamation a Supprimer\n");
         return ;
     }
-    printf("Entrez l'ID de la réclamation à supprimer: ");
+    printf("Entrez l'ID de la reclamation a supprimer: ");
     scanf("%d", &id);
 
     int found = 0;
@@ -537,14 +628,14 @@ void clientMenu(char *username) {
 void traiter_reclamation() {
     int ID;
     int choix;
-    printf("Entrez l'ID de la réclamation a traiter : ");
+    printf("Entrez l'ID de la reclamation a traiter : ");
     scanf("%d", &ID);
 
     for (int i = 0; i < claimCount; i++) {
         if (ID == claims[i].id) {
             printf("\n1. En cours.\n");
-            printf("2. Résolue.\n");
-            printf("3. Rejetée.\n");
+            printf("2. Resolue.\n");
+            printf("3. Rejetee.\n");
             printf("Votre choix : ");
             scanf("%d", &choix);
 
@@ -553,7 +644,7 @@ void traiter_reclamation() {
                     strcpy(claims[i].status, "en cours");
                     break;
                 case 2:
-                    strcpy(claims[i].status, "résolue");
+                    strcpy(claims[i].status, "resolue");
                     nombre_reclama_resolue++;
                     time_t t = time(NULL);
                     struct tm tm = *localtime(&t);
@@ -576,7 +667,7 @@ void traiter_reclamation() {
             return;
         }
     }
-    printf("Reclamation avec l'ID %d non trouvée.\n", ID);
+    printf("Reclamation avec l'ID %d non trouvee.\n", ID);
 }
 
 int prioriteIndex(char *priorite) {
@@ -694,8 +785,17 @@ void Statistiques_Rapports() {
     float moyenne;
 
     printf("\n========== Statistiques & Rapports ==========\n");
-    printf("Le nombre total de réclamations est %d\n", claimCount);
-    printf("Le taux de résolution des réclamations est %d / %d\n", nombre_reclama_resolue, claimCount);
+
+    // En-tête du tableau
+    printf("+-------------------------------------------+\n");
+    printf("|               Statistiques               |\n");
+    printf("+----------------+-------------------------+\n");
+    printf("| Nombre total   | %-23d |\n", claimCount);
+    printf("| Reclamations   |                         |\n");
+    printf("+----------------+-------------------------+\n");
+    printf("| Taux de        | %d / %d                    |\n", nombre_reclama_resolue, claimCount);
+    printf("| Resolution     |                          |\n");
+    printf("+----------------+-------------------------+\n");
 
     // Calcul de la somme des différences
     for (int i = 0; i < differenceCount; i++) {
@@ -704,13 +804,17 @@ void Statistiques_Rapports() {
 
     if (nombre_reclama_resolue != 0) {
         moyenne = (float)somme / nombre_reclama_resolue; // Calcul de la moyenne
-        printf("Délai moyen de traitement des réclamations est %.2f secondes\n", moyenne);
+        printf("| Delai moyen    | %.2f secondes            |\n", moyenne);
     } else {
-        printf("Aucune réclamation résolue\n");
+        printf("| Delai moyen    | Aucune reclamation       |\n");
+        printf("|                | resolue                  |\n");
     }
 
-    printf("\n=============================================\n");
+    // Pied de tableau
+    printf("+----------------+-------------------------+\n");
+    printf("=============================================\n");
 }
+
 
 int Diff_time(char *date1, char *date2) {
     struct tm tm1 = {0}, tm2 = {0};
@@ -870,6 +974,8 @@ void agentMenu() {
     } while (choice != 0);
 }
 int main() {
+     //afficher_intro();
+//again :
     int choice;
     int i;
     do {
@@ -909,7 +1015,10 @@ int main() {
                 printf("Merci d utuliser notre application \n");
                 break;
             default:
-                printf("Choix invalide. Veuillez réessayer.\n");
+                error404();
+
+                system("cls");
+                //goto again;
         }
         }
 
