@@ -72,6 +72,7 @@ void effet_texte(const char* texte) {
 }
 
 void afficher_ascii_art() {
+     system("color 3");
     const char* message =
     "$$$$$$$\\  $$\\                                                                                                                    $$\\ $$\\                   $$\\     $$\\                                 \n"
     "$$  __$$\\ \\__|                                                                                                                   $$ |\\__|                  $$ |    \\__|                                \n"
@@ -106,6 +107,7 @@ void afficher_ascii_art() {
     "";
 
     effet_texte(message);
+     system("color 07");
 }
 
 void afficher_intro() {
@@ -253,14 +255,14 @@ void formulaireInscription() {
 }
 int signinAsAdmin() {
     char username[20], password[20];
-    printf("Veuillez entrer le nom d'utilisateur Admin: ");
+    printTab();printf("Veuillez entrer le nom d'utilisateur Admin: ");
     scanf("%s", username);
 
-    printf("Veuillez entrer le mot de passe Admin: ");
+    printTab();printf("Veuillez entrer le mot de passe Admin: ");
     scanf("%s", password);
 
     if (strcmp(username, "admin") == 0 && strcmp(password, "admin@123") == 0) {
-        printf("Connexion admin reussie\n");
+        printTab();printf("Connexion admin reussie\n");
         return 1;
     } else {
         return 0;
@@ -934,15 +936,15 @@ void connexion_agent(){
 void agentMenu() {
     int choice;
     do {
-        printf("\n========== Agent Menu ==========\n");
-        printf("1. Ajouter une reclamations\n");
-        printf("2. Afficher la liste des reclamations\n");
-        printf("3. Modifier une reclamation\n");
-        printf("4. Supprimer une reclamation\n");
-        printf("5. Traiter une reclamation\n");
-        printf("6. Rechercher une reclamation\n");
-        printf("0. Logout\n");
-        printf("Enter your choice: ");
+        printTab();printf("\n========== Agent Menu ==========\n");
+        printTab();printf("1. Ajouter une reclamations\n");
+        printTab();printf("2. Afficher la liste des reclamations\n");
+       printTab(); printf("3. Modifier une reclamation\n");
+        printTab();printf("4. Supprimer une reclamation\n");
+        printTab();printf("5. Traiter une reclamation\n");
+       printTab(); printf("6. Rechercher une reclamation\n");
+       printTab(); printf("0. Logout\n");
+        printTab();printf("Enter your choice: ");
         scanf("%d", &choice);
         getchar();
 
@@ -974,24 +976,27 @@ void agentMenu() {
     } while (choice != 0);
 }
 int main() {
-     //afficher_intro();
+    // afficher_intro();
 //again :
     int choice;
     int i;
     do {
     printf("\n");
-    printf("\n============================MENU==============================\n");
-    printf("||                                                          ||\n");
-    printf("||                      1. Espace admin                     ||\n");
-    printf("||                      2. Inscription Client               ||\n");
-    printf("||                      3. Connexion Client                 ||\n");
-    printf("||                      4. Connexion Agent                  ||\n");
-    printf("||                      0. Exit ...                         ||\n");
-    printf("||                                                          ||\n");
-    printf("==============================================================\n");
-    printf("Veuillez entrer votre choix: ");
+
+printTab();    printf("============================MENU==============================\n");
+printTab();    printf("||                                                          ||\n");
+printTab();    printf("||                      1. Espace admin                     ||\n");
+printTab();    printf("||                      2. Inscription Client               ||\n");
+printTab();    printf("||                      3. Connexion Client                 ||\n");
+printTab();    printf("||                      4. Connexion Agent                  ||\n");
+printTab();    printf("||                      0. Exit ...                         ||\n");
+printTab();    printf("||                                                          ||\n");
+printTab();    printf("==============================================================\n");
+printTab();    printf("Veuillez entrer votre choix: ");
     int validunput=scanf("%d", &choice);
-    getchar();
+    while(getchar() != '\n');
+
+
 
         if(validunput){
              switch (choice) {
@@ -1020,6 +1025,9 @@ int main() {
                 system("cls");
                 //goto again;
         }
+        }else{
+            error404();
+            effacer_console();
         }
 
     } while (choice != 0 );
