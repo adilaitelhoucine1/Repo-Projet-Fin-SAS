@@ -79,9 +79,9 @@ void topbar() {
 }
 
 
-/*void effacer_console() {
+void effacer_console() {
     system("cls"); // Efface l'�cran sous Windows
-}*/
+}
 
 
 void effet_texte(const char* texte) {
@@ -1007,22 +1007,24 @@ void adminMenu() {
 
     int choice;
     do {
-       printTab(); printf("========== Admin Menu ==========\n");
-       printTab();printf("1. Gerer les roles des utilisateurs\n");
-       printTab(); printf("2. Ajouter une reclamations\n");
-       printTab(); printf("3. Afficher la liste des reclamations\n");
-       printTab(); printf("4. Modifier une reclamation\n");
-       printTab(); printf("5. Supprimer une reclamation\n");
-       printTab(); printf("6. Traiter une reclamation\n");
-       printTab(); printf("7. Rechercher une reclamation\n");
-       printTab(); printf("8. Afficher les reclamations ordonnees par priorite\n");
-       printTab(); printf("9. Statistiques et Rapports\n");
-       printTab(); printf("10. Generer un Rapport journalier:\n");
-       printTab(); printf("0. Logout\n");
-       printTab(); printf("===================================\n");
+       printTab();    printf("============================ADMIN MENU======================================= \n");
+printTab();    printf("||                                                                           ||\n");
+printTab();    printf("||                      1. Gerer Role                                        ||\n");
+printTab();    printf("||                      2. Ajouter Une Reclamation                           ||\n");
+printTab();    printf("||                      3. Afficher la liste des reclamations                ||\n");
+printTab();    printf("||                      4. Connexion Agent                                   ||\n");
+printTab();    printf("||                      5. Modifier une reclamation                          ||\n");
+printTab();    printf("||                      6. Supprimer une reclamation                         ||\n");
+printTab();    printf("||                      7. Traiter une reclamation                           ||\n");
+printTab();    printf("||                      8. Rechercher une reclamation                        ||\n");
+printTab();    printf("||                      9. Afficher les reclamations ordonnees par priorite  ||\n");
+printTab();    printf("||                      10. Statistiques et Rapports                         ||\n");
+printTab();    printf("||                      11. Generer un Rapport journalier                    ||\n");
+printTab();    printf("||                      0. Deconnexion                                       ||\n");
+printTab();    printf("=============================================================================\n");
        printTab(); printf("Enter your choice: ");
 
-       printTab(); scanf("%d", &choice);
+        scanf("%d", &choice);
         getchar();
 
         switch (choice) {
@@ -1068,7 +1070,7 @@ void connexion_agent(){
     int trouve = 0, count = 1;
     char username[20], password[20];
 
-   printTab(); printf("\n-----------Connexion-----------\n");
+   printTab(); printf("-----------Connexion-----------\n");
     while (count <= 3) {
        printTab(); printf("Veuillez entrer le nom d'utilisateur : ");
         scanf(" %[^\n]", username);
@@ -1200,7 +1202,7 @@ printTab();    printf("Veuillez entrer votre choix: ");
         }
         }else{
             error404();
-           // effacer_console();
+            effacer_console();
         }
 
     } while (choice != 0 );
