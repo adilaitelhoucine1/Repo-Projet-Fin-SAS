@@ -10,6 +10,40 @@
 void printTab(){
 	printf("\t\t\t\t\t");
 }
+
+void production(){
+	system("color B");
+	printf("\n\n\n\n\n");
+printf("\t\t__     __   ____    _    _    ____   ______  ______   ______    \n");
+printf("\t\t\\ \\   / /  |  _ \\  | |  | |  / __ \\ |  ____||  ____| |  ____|   \n");
+printf("\t\t \\ \\_/ /   | |_) | | |  | | | |  | || |__   | |__    | |__      \n");
+printf("\t\t  \\   /    |  _ <  | |  | | | |  | ||  __|  |  __|   |  __|     \n");
+printf("\t\t   | |     | |_) | | |__| | | |__| || |____ | |____ | |____    \n");
+printf("\t\t   |_|     |____/   \\____/   \\____/ |______||______||______|   \n");
+        sleep(5);
+		system("cls");
+		printf("\n\n\n");
+		printf("\t\t			.---.               _        .-.   .---.  _          .--.  .--.  .--. \n");
+		printf("\t\t			: .; :             :_;      .' `.  : .--':_;        : .--': .; :: .--'\n");
+		printf("\t\t			:  _.'.--.  .--.   .-. .--. `. .'  : `;  .-.,-.,-.  `. `. :    :`. `. \n");
+		printf("\t\t			: :   : ..'' .; :  : :' '_.' : :   : :   : :: ,. :   _`, :: :: : _`, :\n");
+		printf("\t\t			:_;   :_;  `.__.'  : :`.__.' :_;   :_;   :_;:_;:_;  `.__.':_;:_;`.__.'\n");
+		printf("\t\t			                 .-. :                                                     \n");
+		printf("\t\t			                 `._.'                                                          \n");
+		printf("\n\n\n");
+        printf("\t\t   ___   ___ ___  _  _         __  ___   ___ ___  _____   \n");
+        printf("\t\t  |__ \\ / _ \\__ \\| || |       / / |__ \\ / _ \\__ \\| ____|  \n");
+        printf("\t\t     ) | | | | ) | || |_     / /     ) | | | | ) | |__    \n");
+        printf("\t\t    / /| | | |/ /|__   _|   / /     / /| | | |/ /|___ \\   \n");
+        printf("\t\t   / /_| |_| / /_   | |    / /     / /_| |_| / /_ ___) |  \n");
+        printf("\t\t  |____|\\___/____|  |_|   /_/     |____|\\___/____|____/   \n");
+        printf("\t\t                                                       \n");
+        printf("\t\t                                                       \n");
+
+
+		sleep(5);
+		effacer_console();
+		}
 typedef struct {
     int id;
     char Motif[100];
@@ -230,7 +264,7 @@ int validatePassword(char *username, char *password) {
 }
 void formulaireInscription() {
     User newuser;
-
+    strcpy(newuser.role,"client");
    printTab();printf("-----------Creation de compte-----------\n");
     printTab();printf("Entrez votre nom d'utilisateur: ");
     scanf(" %[^\n]", newuser.username);
@@ -259,7 +293,7 @@ void formulaireInscription() {
     // Ajouter l  utilisateur au tableau
     if (userCount < MAX_USERS) {
         users[userCount] = newuser;
-      printTab();  printf("\n Vous avez cree votre compte avec succes.\n");
+      printTab();  printf("Vous avez cree votre compte avec succes.\n");
         userCount++;
     } else {
        printTab(); printf("\n -!- Erreur : Limite d'utilisateurs atteinte -!-.\n");
@@ -293,7 +327,7 @@ void connexion() {
         scanf("%s", password);
 
         for (int i = 0; i < userCount; i++) {
-            if (strcmp(users[i].username, username) == 0 && strcmp(users[i].password, password) == 0 ) {
+            if (strcmp(users[i].username, username) == 0 && strcmp(users[i].password, password) == 0 && strcmp(users[i].role, "agent") != 0) {
                 trouve = 1;
                 clientMenu(users[i].username); // Passe le nom d'utilisateur
                 return;
@@ -303,20 +337,20 @@ void connexion() {
         if (trouve == 1) {
             return;
         } else {
-          printTab();  printf("Connexion echouee\n");
+          printTab(); printf("Connexion echouee\n");
         }
 
         count++;
-      printTab();  printf("\n Attention il vous reste %d tentative(s)\n", (3 - count) + 1);
+      printTab();  printf("Attention il vous reste %d tentative(s)\n", (3 - count) + 1);
     }
 
-   printTab(); printf("\nErreur !! Mot de passe incorrect 3 fois\n");
-  printTab();  printf("Veuillez patienter 10 secondes avant de r�essayer...\n");
+   printTab(); printf("Erreur !! Mot de passe incorrect 3 fois\n");
+  printTab();  printf("Veuillez patienter 10 secondes avant de reessayer...\n");
     sleep(10);
+    effacer_console();
 }
 
 void generer_role() {
-
 
     int i, modifie = 0;
     char nom[20];
@@ -331,7 +365,7 @@ void generer_role() {
         }
     }
     if (modifie == 1) {
-       printTab(); printf("\n Utilisateur %s est maintenant agent\n", nom);
+       printTab(); printf("Utilisateur %s est maintenant agent\n", nom);
     } else {
       printTab();  printf("Utilisateur %s non trouve\n", nom);
     }
@@ -343,13 +377,13 @@ void Ajout_reclamation_client(char *username) {
     newreclamation.id = rand() % 100 + 1;
     newreclamation.index_resolue=0;
 
-   printTab(); printf("Entrer Le Motif : \n");
+   printTab(); printf("Entrer Le Motif : ");
     scanf(" %[^\n]", newreclamation.Motif);
 
-   printTab(); printf("Entrer La Description : \n");
+   printTab(); printf("Entrer La Description : ");
     scanf(" %[^\n]", newreclamation.description);
 
- printTab();  printf("Entrer La Categorie : \n");
+ printTab();  printf("Entrer La Categorie : ");
     scanf(" %[^\n]", newreclamation.categorie);
 
     strcpy(newreclamation.status, "en Attent");
@@ -358,7 +392,7 @@ void Ajout_reclamation_client(char *username) {
 
     time_t t = time(NULL);
     struct tm tm = *localtime(&t);
-    strftime(newreclamation.date, sizeof(newreclamation.date), "%d-%m-%Y", &tm);
+    strftime(newreclamation.date, sizeof(newreclamation.date), "%d-%m-%Y %H:%M:%S", &tm);
 
 
     attribuerPriorite(&newreclamation);
@@ -367,9 +401,9 @@ void Ajout_reclamation_client(char *username) {
     if (claimCount < MAX_CLAIMS) {
         claims[claimCount] = newreclamation;
         claimCount++;
-        printf("Reclamation ajoutee avec succes.\n");
+       printTab(); printf("Reclamation ajoutee avec succes.\n");
     } else {
-        printf("Erreur : Limite de reclamations atteinte.\n");
+      printTab();  printf("Erreur : Limite de reclamations atteinte.\n");
     }
 }
 void Ajout_reclamation_All() {
@@ -394,39 +428,39 @@ void Ajout_reclamation_All() {
 
     time_t t = time(NULL);
     struct tm tm = *localtime(&t);
-    strftime(newreclamation.date, sizeof(newreclamation.date), "%d-%m-%Y ", &tm);
+    strftime(newreclamation.date, sizeof(newreclamation.date), "%d-%m-%Y %H:%M:%S", &tm);
 
 
     attribuerPriorite(&newreclamation);
     if (claimCount < MAX_CLAIMS) {
         claims[claimCount] = newreclamation;
         claimCount++;
-        printTab();printf("R�clamation ajoutee avec succes.\n");
+        printTab();printf("Reclamation ajoutee avec succes.\n");
     } else {
        printTab(); printf("Erreur : Limite de reclamations atteinte.\n");
     }
     //effacer_console();
     //topbar();
-    adminMenu();
+   // adminMenu();
 }
 void affiche_reclamations_client(char *username) {
 
     if (claimCount == 0) {
-        printf("Aucune reclamation a afficher.\n");
+       printTab(); printf("Aucune reclamation a afficher.\n");
         return 0;
     }
 
   printTab();  printf("==================== Liste des Reclamations ====================\n");
     for (int i = 0; i < claimCount; i++) {
         if (strcmp(claims[i].username, username) == 0) { // Affiche  les reclamations  dya  client bohdo
-            printf("ID: %d\n", claims[i].id);
-            printf("Motif: %s\n", claims[i].Motif);
-            printf("Description: %s\n", claims[i].description);
-            printf("Cat�gorie: %s\n", claims[i].categorie);
-            printf("Statut: %s\n", claims[i].status);
-            printf("Date: %s\n", claims[i].date);
-            printf("Notes: %s\n", claims[i].notes);
-            printf("---------------------------------------------------------------\n");
+           printTab(); printf("ID: %d\n", claims[i].id);
+           printTab(); printf("Motif: %s\n", claims[i].Motif);
+           printTab(); printf("Description: %s\n", claims[i].description);
+           printTab(); printf("Cat�gorie: %s\n", claims[i].categorie);
+           printTab(); printf("Statut: %s\n", claims[i].status);
+           printTab(); printf("Date: %s\n", claims[i].date);
+           printTab(); printf("Notes: %s\n", claims[i].notes);
+           printTab(); printf("---------------------------------------------------------------\n");
         }
     }
 }
@@ -434,7 +468,7 @@ void affiche_reclamations_All() {
 
 
     if (claimCount == 0) {
-        printf("Aucune reclamation a afficher.\n");
+       printTab(); printf("Aucune reclamation a afficher.\n");
         return 0;
     }
 
@@ -442,12 +476,12 @@ void affiche_reclamations_All() {
     for (int i = 0; i < claimCount; i++) {
            printTab(); printf("ID: %d\n", claims[i].id);
            printTab(); printf("Motif: %s\n", claims[i].Motif);
-           printTab(); printf("Description: %s\n", claims[i].description);
+         printTab(); printf("Description: %s\n", claims[i].description);
           printTab();  printf("Categorie: %s\n", claims[i].categorie);
           printTab();  printf("Statut: %s\n", claims[i].status);
           printTab();  printf("Date: %s\n", claims[i].date);
           printTab();  printf("Notes: %s\n", claims[i].notes);
-          printTab();  printf("Fait par : %s\n", claims[i].username);
+          printTab();  printf("Fait par: %s\n", claims[i].username);
           printTab();  printf("---------------------------------------------------------------\n");
         }
 
@@ -542,7 +576,7 @@ void supprimer_reclamation_client(char *username) {
         printf("Aucune Reclamation a Supprimer\n");
         return ;
     }
-   printTab(); printf("Entrez l'ID de la reclamation � supprimer: ");
+   printTab(); printf("Entrez l'ID de la reclamation a supprimer: ");
     scanf("%d", &id);
 
     int found = 0;
@@ -611,14 +645,16 @@ void clientMenu(char *username) {
 
     int choice;
     do {
-      printTab();printf("\n----------- Menu Client -----------\n");
-      printTab(); printf("1. Ajouter une reclamation\n");
-      printTab(); printf("2. Afficher mes reclamations\n");
-      printTab();  printf("3. Modifier une reclamation\n");
-      printTab();  printf("4. Supprimer une reclamation\n");
-      printTab();  printf("0. Deconnexion\n");
+       printTab();    printf("============================CLIENT MENU======================================= \n");
+printTab();    printf("||                                                                           ||\n");
+printTab();    printf("||                      1. Ajouter Une Reclamation                           ||\n");
+printTab();    printf("||                      2. Afficher la liste des reclamations                ||\n");
+printTab();    printf("||                      3. Modifier une reclamation                          ||\n");
+printTab();    printf("||                      4. Supprimer une reclamation                         ||\n");
+printTab();    printf("||                      0. Deconnexion                                       ||\n");
+printTab();    printf("=============================================================================\n");
       printTab();  printf("Entrez votre choix: ");
-      printTab();  scanf("%d", &choice);
+      scanf("%d", &choice);
 
         switch (choice) {
             case 1:
@@ -901,7 +937,7 @@ void Statistiques_Rapports() {
     int somme = 0;
     float moyenne;
 
-    printTab();printf("\n========== Statistiques & Rapports ==========\n");
+    printTab();printf("========== Statistiques & Rapports ==========\n");
 
 
    printTab(); printf("+-------------------------------------------+\n");
@@ -921,7 +957,7 @@ void Statistiques_Rapports() {
 
     if (nombre_reclama_resolue != 0 || nombre_reclama_rejected !=0) {
         moyenne = (float)somme / (nombre_reclama_resolue+nombre_reclama_rejected); // Calcul de la moyenne
-        printf("| Delai moyen    | %.2f secondes            |\n", moyenne);
+        printTab(); printf("| Delai moyen    | %.2f secondes            |\n", moyenne);
     } else {
                 printf("| Delai moyen    | Aucune reclamation       |\n");
                 printf("|                | Traite                  |\n");
@@ -1004,7 +1040,8 @@ void Generer_rapport(reclamation claims[], int claimCount) {
 
 
 void adminMenu() {
-
+    effacer_console();
+    topbar();
     int choice;
     do {
        printTab();    printf("============================ADMIN MENU======================================= \n");
@@ -1012,14 +1049,13 @@ printTab();    printf("||                                                       
 printTab();    printf("||                      1. Gerer Role                                        ||\n");
 printTab();    printf("||                      2. Ajouter Une Reclamation                           ||\n");
 printTab();    printf("||                      3. Afficher la liste des reclamations                ||\n");
-printTab();    printf("||                      4. Connexion Agent                                   ||\n");
-printTab();    printf("||                      5. Modifier une reclamation                          ||\n");
-printTab();    printf("||                      6. Supprimer une reclamation                         ||\n");
-printTab();    printf("||                      7. Traiter une reclamation                           ||\n");
-printTab();    printf("||                      8. Rechercher une reclamation                        ||\n");
-printTab();    printf("||                      9. Afficher les reclamations ordonnees par priorite  ||\n");
-printTab();    printf("||                      10. Statistiques et Rapports                         ||\n");
-printTab();    printf("||                      11. Generer un Rapport journalier                    ||\n");
+printTab();    printf("||                      4. Modifier Agent                                    ||\n");
+printTab();    printf("||                      5. Supprimer une reclamation                         ||\n");
+printTab();    printf("||                      6. Traiter une reclamation                           ||\n");
+printTab();    printf("||                      7. Rechercher une reclamation                        ||\n");
+printTab();    printf("||                      8. Afficher les reclamations ordonnees par priorite  ||\n");
+printTab();    printf("||                      9. Statistiques et Rapports                          ||\n");
+printTab();    printf("||                      10. Generer un Rapport journalier                    ||\n");
 printTab();    printf("||                      0. Deconnexion                                       ||\n");
 printTab();    printf("=============================================================================\n");
        printTab(); printf("Enter your choice: ");
@@ -1033,6 +1069,7 @@ printTab();    printf("=========================================================
                 break;
             case 2:
                 Ajout_reclamation_All("admin");
+                adminMenu();
                 break;
             case 3:
                 affiche_reclamations_All("admin");
@@ -1060,6 +1097,7 @@ printTab();    printf("=========================================================
                 break;
             case 0:
                 printTab();printf("Logging out as Admin...\n");
+                //effacer_console();
                 break;
             default:
                 printTab();printf("Invalid choice. Please try again.\n");
@@ -1087,6 +1125,9 @@ void connexion_agent(){
         }
 
         if (trouve == 1) {
+          // effacer_console();
+           //topbar();
+           //adminMenu();
            agentMenu();
             return;
         } else {
@@ -1094,27 +1135,28 @@ void connexion_agent(){
         }
 
         count++;
-       printTab(); printf("\nAttention il vous reste %d tentative(s)\n", (3 - count) + 1);
+       printTab();printf("Attention il vous reste %d tentative(s)\n", (3 - count) + 1);
     }
 
-   printTab(); printf("\nErreur !! Mot de passe incorrect 3 fois\n");
+   printTab(); printf("Erreur !! Mot de passe incorrect 3 fois\n");
 
-
-   printTab() ;printf("Veuillez patienter 10 secondes avant de reessayer...\n");
+   printTab() ;printf("Veuillez patienter 10 secondes avant de ressayer...\n");
     sleep(10);
 }
 
 void agentMenu() {
     int choice;
     do {
-        printTab();printf("\n========== Agent Menu ==========\n");
-        printTab();printf("1. Ajouter une reclamations\n");
-        printTab();printf("2. Afficher la liste des reclamations\n");
-       printTab(); printf("3. Modifier une reclamation\n");
-        printTab();printf("4. Supprimer une reclamation\n");
-        printTab();printf("5. Traiter une reclamation\n");
-       printTab(); printf("6. Rechercher une reclamation\n");
-       printTab(); printf("0. Logout\n");
+       printTab();    printf("============================AGENT MENU======================================= \n");
+printTab();    printf("||                                                                           ||\n");
+printTab();    printf("||                      1. Ajouter Une Reclamation                           ||\n");
+printTab();    printf("||                      2. Afficher la liste des reclamations                ||\n");
+printTab();    printf("||                      3. Modifier une reclamation                          ||\n");
+printTab();    printf("||                      4. Supprimer une reclamation                         ||\n");
+printTab();    printf("||                      5. Traiter une reclamation                           ||\n");
+printTab();    printf("||                      6. Recherche une reclamation                         ||\n");
+printTab();    printf("||                      0. Deconnexion                                       ||\n");
+printTab();    printf("=============================================================================\n");
         printTab();printf("Enter your choice: ");
         scanf("%d", &choice);
         getchar();
@@ -1122,6 +1164,7 @@ void agentMenu() {
         switch (choice) {
             case 1:
                 Ajout_reclamation_All("agent");
+                agentMenu();
                 break;
             case 2:
                 affiche_reclamations_All("agent");
@@ -1140,6 +1183,7 @@ void agentMenu() {
                 break;
             case 0:
                printTab(); printf("Deconnexon comme agent...\n");
+
                 break;
             default:
                printTab(); printf("Invalid choice. Please try again.\n");
@@ -1148,13 +1192,15 @@ void agentMenu() {
 }
 int main() {
      //afficher_intro();
-//again :
+//
+production();
     int choice;
     int i;
     do {
     printf("\n");
-    printTab();
-    topbar();
+    //printTab();
+    //topbar();
+    again :
 printTab();    printf("============================MENU==============================\n");
 printTab();    printf("||                                                          ||\n");
 printTab();    printf("||                      1. Espace admin                     ||\n");
@@ -1168,18 +1214,18 @@ printTab();    printf("Veuillez entrer votre choix: ");
     int validunput=scanf("%d", &choice);
     while(getchar() != '\n');
 
-
-
         if(validunput){
              switch (choice) {
             case 1:
                 if (signinAsAdmin()) {
-                    adminMenu();
+                     //effacer_console();
+                     //topbar();
+                     adminMenu();
                 } else {
                     //printTab();printf("Echec de la connexion en tant qu'admin\n");
                 error404();
+                effacer_console();
                 //system("cls");
-
                 }
                 break;
             case 2:
@@ -1196,6 +1242,7 @@ printTab();    printf("Veuillez entrer votre choix: ");
                 break;
             default:
                 error404();
+                effacer_console();
 
               //  system("cls");
                 //goto again;
