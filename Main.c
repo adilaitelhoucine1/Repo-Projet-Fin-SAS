@@ -1037,8 +1037,8 @@ void Statistiques_Rapports() {
         moyenne = (float)somme / (nombre_reclama_resolue+nombre_reclama_rejected); // Calcul de la moyenne
         printTab(); printf("| Delai moyen    | %.2f secondes            |\n", moyenne);
     } else {
-                printf("| Delai moyen    | Aucune reclamation       |\n");
-                printf("|                | Traite                  |\n");
+               printTab(); printf("| Delai moyen    | Aucune reclamation       |\n");
+               printTab(); printf("|                | Traite                  |\n");
     }
 
     printTab();printf("+----------------+-------------------------+\n");
@@ -1087,7 +1087,7 @@ void Generer_rapport(reclamation claims[], int claimCount) {
         fprintf(fichier, "Statut: %s\n", claims[i].status);
         fprintf(fichier, "Date: %s\n", claims[i].date);
         fprintf(fichier, "Notes: %s\n", claims[i].notes);
-        fprintf(fichier, "---------------------------------------------------------------\n");
+        fprintf(fichier, "----------------------------------------------------------------------------\n");
        }
 
     }
@@ -1106,14 +1106,15 @@ void Generer_rapport(reclamation claims[], int claimCount) {
                 fprintf(fichier, "Statut: %s\n", claims[i].status);
                 fprintf(fichier, "Date: %s\n", claims[i].date);
                 fprintf(fichier, "Notes: %s\n", claims[i].notes);
-                fprintf(fichier, "---------------------------------------------------------------\n");
+                fprintf(fichier, "----------------------------------------------------------------------------\n");
+
             //}
 
     }
     fclose(fichier);
 
 
-   printTab(); printf("Donnees enregistrées avec succes dans rapport.txt\n"); // Corrigé le nom du fichier ici
+   printTab(); printf("Donnees enregistrees avec succes dans rapport.txt\n"); // Corrigé le nom du fichier ici
 }
 
 
