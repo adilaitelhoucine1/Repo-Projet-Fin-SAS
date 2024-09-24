@@ -11,15 +11,45 @@ void printTab(){
 	printf("\t\t\t\t\t");
 }
 
+void end(){
+	system("color B");
+	printf("\n\n\n\n\n");
+printf("\t ___      __    __     .______       ___________    ____  ______    __  .______      \n");
+printf("\t/   \\    |  |  |  |    |   _  \\     |   ____\\   \\  /   / /  __  \\  |  | |   _  \\     \n");
+printf("\t/  ^  \\   |  |  |  |    |  |_)  |    |  |__   \\   \\/   / |  |  |  | |  | |  |_)  |    \n");
+printf("\t/  /_\\  \\  |  |  |  |    |      /     |   __|   \\      /  |  |  |  | |  | |      /     \n");
+printf("\t/  _____  \\ |  `--'  |    |  |\\  \\----.|  |____   \\    /   |  `--'  | |  | |  |\\  \\----.\n");
+printf("\t/__/     \\__\\ \\______/     | _| `._____||_______|   \\__/     \\______/  |__| | _| `._____|\n");
+printf("\t                                                                                       \n");
+printf("\t                                                                                       \n");
+printf("\t                                                                                       \n");
+printf("\t                                                                                       \n");
+printf("\t                                                                                       \n");
+printf("\t                                                                                       \n");
+printf("\t                                                                                       \n");
+printf("\t                                                                                       \n");
+printf("\t.___  ___.  _______ .______        ______  __                                           \n");
+printf("\t|   \\/   | |   ____||   _  \\      /      ||  |                                          \n");
+printf("\t|  \\  /  | |  |__   |  |_)  |    |  ,----'|  |                                          \n");
+printf("\t|  |\\/|  | |   __|  |      /     |  |     |  |                                          \n");
+printf("\t|  |  |  | |  |____ |  |\\  \\----.|  `----.|  |                                          \n");
+printf("\t|__|  |__| |_______|| _| `._____| \\______||__|                                          \n");
+
+		}
+
 void production(){
 	system("color B");
 	printf("\n\n\n\n\n");
-printf("\t\t__     __   ____    _    _    ____   ______  ______   ______    \n");
-printf("\t\t\\ \\   / /  |  _ \\  | |  | |  / __ \\ |  ____||  ____| |  ____|   \n");
-printf("\t\t \\ \\_/ /   | |_) | | |  | | | |  | || |__   | |__    | |__      \n");
-printf("\t\t  \\   /    |  _ <  | |  | | | |  | ||  __|  |  __|   |  __|     \n");
-printf("\t\t   | |     | |_) | | |__| | | |__| || |____ | |____ | |____    \n");
-printf("\t\t   |_|     |____/   \\____/   \\____/ |______||______||______|   \n");
+printf("\t\t _______               _______    _______    ______     _______   \n");
+printf("\t\t|\\     /|  (  ___  )  |\\     /|  (  ____ \\  (  ___  )  (  __  \\   (  ____ \\  \n");
+printf("\t\t( \\   / )  | (   ) |  | )   ( |  | (    \\/  | (   ) |  | (  \\  )  | (    \\/  \n");
+printf("\t\t \\ (_) /   | |   | |  | |   | |  | |        | |   | |  | |   ) |  | (__      \n");
+printf("\t\t  \\   /    | |   | |  | |   | |  | |        | |   | |  | |   | |  |  __)     \n");
+printf("\t\t   ) (     | |   | |  | |   | |  | |        | |   | |  | |   ) |  | (        \n");
+printf("\t\t   | |     | (___) |  | (___) |  | (____/\\  | (___) |  | (__/  )  | (____/\\  \n");
+printf("\t\t   \\_/     (_______)  (_______)  (_______/  (_______)  (______/   (_______/  \n");
+printf("\t\t                                                                       \n");
+
         sleep(5);
 		system("cls");
 		printf("\n\n\n");
@@ -406,6 +436,46 @@ void Ajout_reclamation_client(char *username) {
       printTab();  printf("Erreur : Limite de reclamations atteinte.\n");
     }
 }
+
+void Ajout_reclamation_All_admin() {
+
+
+    srand(time(NULL));
+    reclamation newreclamation;
+    newreclamation.id = rand() % 100 + 1;
+
+    printTab();printf("Entrer Le Motif : \n");
+    printTab();scanf(" %[^\n]", newreclamation.Motif);
+
+ printTab();printf("Entrer La Description : \n");
+   printTab(); scanf(" %[^\n]", newreclamation.description);
+
+ printTab();printf("Entrer La Categorie : \n");
+   printTab(); scanf(" %[^\n]", newreclamation.categorie);
+
+    strcpy(newreclamation.status, "en Attent");
+    //strcpy(newreclamation.username, "Agent");
+    strcpy(newreclamation.notes, "Aucune Note A affiche \n");
+
+
+    time_t t = time(NULL);
+    struct tm tm = *localtime(&t);
+    strftime(newreclamation.date, sizeof(newreclamation.date), "%d-%m-%Y %H:%M:%S", &tm);
+
+
+    attribuerPriorite(&newreclamation);
+    if (claimCount < MAX_CLAIMS) {
+        claims[claimCount] = newreclamation;
+        claimCount++;
+        printTab();printf("Reclamation ajoutee avec succes.\n");
+    } else {
+       printTab(); printf("Erreur : Limite de reclamations atteinte.\n");
+    }
+    //effacer_console();
+    //topbar();
+   // adminMenu();
+}
+
 void Ajout_reclamation_All() {
 
 
@@ -423,6 +493,7 @@ void Ajout_reclamation_All() {
    printTab(); scanf(" %[^\n]", newreclamation.categorie);
 
     strcpy(newreclamation.status, "en Attent");
+    strcpy(newreclamation.username, "Agent");
     strcpy(newreclamation.notes, "Aucune Note A affiche \n");
 
 
@@ -458,6 +529,7 @@ void affiche_reclamations_client(char *username) {
            printTab(); printf("Description: %s\n", claims[i].description);
            printTab(); printf("Cat�gorie: %s\n", claims[i].categorie);
            printTab(); printf("Statut: %s\n", claims[i].status);
+           printTab(); printf("Periorite: %s\n", claims[i].periorite);
            printTab(); printf("Date: %s\n", claims[i].date);
            printTab(); printf("Notes: %s\n", claims[i].notes);
            printTab(); printf("---------------------------------------------------------------\n");
@@ -479,9 +551,15 @@ void affiche_reclamations_All() {
          printTab(); printf("Description: %s\n", claims[i].description);
           printTab();  printf("Categorie: %s\n", claims[i].categorie);
           printTab();  printf("Statut: %s\n", claims[i].status);
+        printTab();  printf("Periorite: %s\n", claims[i].periorite);
           printTab();  printf("Date: %s\n", claims[i].date);
           printTab();  printf("Notes: %s\n", claims[i].notes);
-          printTab();  printf("Fait par: %s\n", claims[i].username);
+          if(strlen(claims[i].username)==0){
+            printTab();  printf("Fait par: Admin \n");
+          }else{
+              printTab();  printf("Fait par: %s\n", claims[i].username);
+          }
+
           printTab();  printf("---------------------------------------------------------------\n");
         }
 
@@ -532,7 +610,7 @@ void modifier_reclamation_client(char *username) {
 void modifier_reclamation_All() {
 
     int id;
-   printTab(); printf("Entrez l'ID de la reclamation � modifier: ");
+   printTab(); printf("Entrez l'ID de la reclamation a modifier: ");
     scanf("%d", &id);
 
     for (int i = 0; i < claimCount; i++) {
@@ -670,7 +748,7 @@ printTab();    printf("=========================================================
                 supprimer_reclamation_client(username);
                 break;
             case 0:
-                printf("Deconnexion reussie.\n");
+                printTab();printf("Deconnexion reussie.\n");
                 break;
             default:
                 printTab();printf("Choix invalide. Veuillez reessayer.\n");
@@ -809,7 +887,7 @@ void rechercher_reclamation() {
     printTab();
     printf("5. Statut\n");
     printTab();
-    printf("6. Catégorie de réclamation\n");
+    printf("6. Categorie de reclamation\n");
     printTab();
     printf("Entrez votre choix: ");
     scanf("%d", &choix);
@@ -891,7 +969,7 @@ void rechercher_reclamation() {
 
         case 5: // Recherche par Statut
             printTab();
-            printf("Entrez le statut (en cours, rejeté, résolu): ");
+            printf("Entrez le statut (en cours, rejete, resolu): ");
             scanf(" %[^\n]", statut);
             int statutFound = 0;
 
@@ -1020,7 +1098,7 @@ void Generer_rapport(reclamation claims[], int claimCount) {
     struct tm tm = *localtime(&t);
     strftime(dates, sizeof(dates), "%d-%m-%Y", &tm);
     for (int i = 0; i < claimCount; i++) {
-            if(difference_entre_dates(claims[i].date,dates) == 0){
+            //if(difference_entre_dates(claims[i].date,dates) == 0){
                 fprintf(fichier, "ID: %d\n", claims[i].id);
                 fprintf(fichier, "Motif: %s\n", claims[i].Motif);
                 fprintf(fichier, "Description: %s\n", claims[i].description);
@@ -1029,7 +1107,7 @@ void Generer_rapport(reclamation claims[], int claimCount) {
                 fprintf(fichier, "Date: %s\n", claims[i].date);
                 fprintf(fichier, "Notes: %s\n", claims[i].notes);
                 fprintf(fichier, "---------------------------------------------------------------\n");
-            }
+            //}
 
     }
     fclose(fichier);
@@ -1049,7 +1127,7 @@ printTab();    printf("||                                                       
 printTab();    printf("||                      1. Gerer Role                                        ||\n");
 printTab();    printf("||                      2. Ajouter Une Reclamation                           ||\n");
 printTab();    printf("||                      3. Afficher la liste des reclamations                ||\n");
-printTab();    printf("||                      4. Modifier Agent                                    ||\n");
+printTab();    printf("||                      4. Modifier une reclamation                          ||\n");
 printTab();    printf("||                      5. Supprimer une reclamation                         ||\n");
 printTab();    printf("||                      6. Traiter une reclamation                           ||\n");
 printTab();    printf("||                      7. Rechercher une reclamation                        ||\n");
@@ -1061,14 +1139,14 @@ printTab();    printf("=========================================================
        printTab(); printf("Enter your choice: ");
 
         scanf("%d", &choice);
-        getchar();
+        while(getchar() != '\n');
 
         switch (choice) {
             case 1:
                 generer_role();
                 break;
             case 2:
-                Ajout_reclamation_All("admin");
+                Ajout_reclamation_All_admin("admin");
                 adminMenu();
                 break;
             case 3:
@@ -1238,7 +1316,8 @@ printTab();    printf("Veuillez entrer votre choix: ");
                 connexion_agent();
                 break;
              case 0:
-               printTab(); printf("Merci d utuliser notre application \n");
+               //printTab(); printf("Merci d utuliser notre application \n");
+               end();
                 break;
             default:
                 error404();
