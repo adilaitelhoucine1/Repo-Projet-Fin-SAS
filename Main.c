@@ -14,61 +14,63 @@ void printTab(){
 void end(){
 	system("color B");
 	printf("\n\n\n\n\n");
-printf("\t ___      __    __     .______       ___________    ____  ______    __  .______      \n");
-printf("\t/   \\    |  |  |  |    |   _  \\     |   ____\\   \\  /   / /  __  \\  |  | |   _  \\     \n");
-printf("\t/  ^  \\   |  |  |  |    |  |_)  |    |  |__   \\   \\/   / |  |  |  | |  | |  |_)  |    \n");
-printf("\t/  /_\\  \\  |  |  |  |    |      /     |   __|   \\      /  |  |  |  | |  | |      /     \n");
-printf("\t/  _____  \\ |  `--'  |    |  |\\  \\----.|  |____   \\    /   |  `--'  | |  | |  |\\  \\----.\n");
-printf("\t/__/     \\__\\ \\______/     | _| `._____||_______|   \\__/     \\______/  |__| | _| `._____|\n");
-printf("\t                                                                                       \n");
-printf("\t                                                                                       \n");
-printf("\t                                                                                       \n");
-printf("\t                                                                                       \n");
-printf("\t                                                                                       \n");
-printf("\t                                                                                       \n");
-printf("\t                                                                                       \n");
-printf("\t                                                                                       \n");
-printf("\t.___  ___.  _______ .______        ______  __                                           \n");
-printf("\t|   \\/   | |   ____||   _  \\      /      ||  |                                          \n");
-printf("\t|  \\  /  | |  |__   |  |_)  |    |  ,----'|  |                                          \n");
-printf("\t|  |\\/|  | |   __|  |      /     |  |     |  |                                          \n");
-printf("\t|  |  |  | |  |____ |  |\\  \\----.|  `----.|  |                                          \n");
-printf("\t|__|  |__| |_______|| _| `._____| \\______||__|                                          \n");
+printTab();printf("\t ___      __    __     .______       ___________    ____  ______    __  .______      \n");
+printTab();printf("\t/   \\    |  |  |  |    |   _  \\     |   ____\\   \\  /   / /  __  \\  |  | |   _  \\     \n");
+printTab();printf("\t/  ^  \\   |  |  |  |    |  |_)  |    |  |__   \\   \\/   / |  |  |  | |  | |  |_)  |    \n");
+printTab();printf("\t/  /_\\  \\  |  |  |  |    |      /     |   __|   \\      /  |  |  |  | |  | |      /     \n");
+printTab();printf("\t/  _____  \\ |  `--'  |    |  |\\  \\----.|  |____   \\    /   |  `--'  | |  | |  |\\  \\----.\n");
+printTab();printf("\t/__/     \\__\\ \\______/     | _| `._____||_______|   \\__/     \\______/  |__| | _| `._____|\n");
+printTab();printf("\t                                                                                       \n");
+printTab();printf("\t                                                                                       \n");
+printTab();printf("\t                                                                                       \n");
+printTab();printf("\t                                                                                       \n");
+printTab();printf("\t                                                                                       \n");
+printTab();printf("\t                                                                                       \n");
+printTab();printf("\t                                                                                       \n");
+printTab();printf("\t                                                                                       \n");
+printTab();printf("\t.___  ___.  _______ .______        ______  __                                           \n");
+printTab();printf("\t|   \\/   | |   ____||   _  \\      /      ||  |                                          \n");
+printTab();printf("\t|  \\  /  | |  |__   |  |_)  |    |  ,----'|  |                                          \n");
+printTab();printf("\t|  |\\/|  | |   __|  |      /     |  |     |  |                                          \n");
+printTab();printf("\t|  |  |  | |  |____ |  |\\  \\----.|  `----.|  |                                          \n");
+printTab();printf("\t|__|  |__| |_______|| _| `._____| \\______||__|                                          \n");
 
 		}
 
 void production(){
 	system("color B");
 	printf("\n\n\n\n\n");
-printf("\t\t _______               _______    _______    ______     _______   \n");
-printf("\t\t|\\     /|  (  ___  )  |\\     /|  (  ____ \\  (  ___  )  (  __  \\   (  ____ \\  \n");
-printf("\t\t( \\   / )  | (   ) |  | )   ( |  | (    \\/  | (   ) |  | (  \\  )  | (    \\/  \n");
-printf("\t\t \\ (_) /   | |   | |  | |   | |  | |        | |   | |  | |   ) |  | (__      \n");
-printf("\t\t  \\   /    | |   | |  | |   | |  | |        | |   | |  | |   | |  |  __)     \n");
-printf("\t\t   ) (     | |   | |  | |   | |  | |        | |   | |  | |   ) |  | (        \n");
-printf("\t\t   | |     | (___) |  | (___) |  | (____/\\  | (___) |  | (__/  )  | (____/\\  \n");
-printf("\t\t   \\_/     (_______)  (_______)  (_______/  (_______)  (______/   (_______/  \n");
-printf("\t\t                                                                       \n");
+	printf("\n\n\n\n\n");
+	printf("\n\n\n\n\n");
+printTab();printf("\t\t _______               _______    _______    ______     _______   \n");
+printTab();printf("\t\t|\\     /|  (  ___  )  |\\     /|  (  ____ \\  (  ___  )  (  __  \\   (  ____ \\  \n");
+printTab();printf("\t\t( \\   / )  | (   ) |  | )   ( |  | (    \\/  | (   ) |  | (  \\  )  | (    \\/  \n");
+printTab();printf("\t\t \\ (_) /   | |   | |  | |   | |  | |        | |   | |  | |   ) |  | (__      \n");
+printTab();printf("\t\t  \\   /    | |   | |  | |   | |  | |        | |   | |  | |   | |  |  __)     \n");
+printTab();printf("\t\t   ) (     | |   | |  | |   | |  | |        | |   | |  | |   ) |  | (        \n");
+printTab();printf("\t\t   | |     | (___) |  | (___) |  | (____/\\  | (___) |  | (__/  )  | (____/\\  \n");
+printTab();printf("\t\t   \\_/     (_______)  (_______)  (_______/  (_______)  (______/   (_______/  \n");
+printTab();printf("\t\t                                                                       \n");
 
         sleep(5);
 		system("cls");
-		printf("\n\n\n");
-		printf("\t\t			.---.               _        .-.   .---.  _          .--.  .--.  .--. \n");
-		printf("\t\t			: .; :             :_;      .' `.  : .--':_;        : .--': .; :: .--'\n");
-		printf("\t\t			:  _.'.--.  .--.   .-. .--. `. .'  : `;  .-.,-.,-.  `. `. :    :`. `. \n");
-		printf("\t\t			: :   : ..'' .; :  : :' '_.' : :   : :   : :: ,. :   _`, :: :: : _`, :\n");
-		printf("\t\t			:_;   :_;  `.__.'  : :`.__.' :_;   :_;   :_;:_;:_;  `.__.':_;:_;`.__.'\n");
-		printf("\t\t			                 .-. :                                                     \n");
-		printf("\t\t			                 `._.'                                                          \n");
-		printf("\n\n\n");
-        printf("\t\t   ___   ___ ___  _  _         __  ___   ___ ___  _____   \n");
-        printf("\t\t  |__ \\ / _ \\__ \\| || |       / / |__ \\ / _ \\__ \\| ____|  \n");
-        printf("\t\t     ) | | | | ) | || |_     / /     ) | | | | ) | |__    \n");
-        printf("\t\t    / /| | | |/ /|__   _|   / /     / /| | | |/ /|___ \\   \n");
-        printf("\t\t   / /_| |_| / /_   | |    / /     / /_| |_| / /_ ___) |  \n");
-        printf("\t\t  |____|\\___/____|  |_|   /_/     |____|\\___/____|____/   \n");
-        printf("\t\t                                                       \n");
-        printf("\t\t                                                       \n");
+printTab();printf("\n\n\n");
+	printTab();	printf("\t\t			.---.               _        .-.   .---.  _          .--.  .--.  .--. \n");
+	printTab();	printf("\t\t			: .; :             :_;      .' `.  : .--':_;        : .--': .; :: .--'\n");
+	printTab();	printf("\t\t			:  _.'.--.  .--.   .-. .--. `. .'  : `;  .-.,-.,-.  `. `. :    :`. `. \n");
+	printTab();	printf("\t\t			: :   : ..'' .; :  : :' '_.' : :   : :   : :: ,. :   _`, :: :: : _`, :\n");
+	printTab();	printf("\t\t			:_;   :_;  `.__.'  : :`.__.' :_;   :_;   :_;:_;:_;  `.__.':_;:_;`.__.'\n");
+	printTab();	printf("\t\t			                 .-. :                                                     \n");
+	printTab();	printf("\t\t			                 `._.'                                                          \n");
+	printTab();	printf("\n\n\n");
+   printTab();     printf("\t\t   ___   ___ ___  _  _         __  ___   ___ ___  _____   \n");
+    printTab();    printf("\t\t  |__ \\ / _ \\__ \\| || |       / / |__ \\ / _ \\__ \\| ____|  \n");
+    printTab();    printf("\t\t     ) | | | | ) | || |_     / /     ) | | | | ) | |__    \n");
+     printTab();   printf("\t\t    / /| | | |/ /|__   _|   / /     / /| | | |/ /|___ \\   \n");
+     printTab();   printf("\t\t   / /_| |_| / /_   | |    / /     / /_| |_| / /_ ___) |  \n");
+     printTab();   printf("\t\t  |____|\\___/____|  |_|   /_/     |____|\\___/____|____/   \n");
+     printTab();   printf("\t\t                                                       \n");
+    printTab();    printf("\t\t                                                       \n");
 
 
 		sleep(5);
@@ -129,15 +131,15 @@ void topbar() {
     printf("\n\n");
     printTab();
 
-    printf("\n");
-    printf("                   _   _                      _            _____               _                         _   _                  \n");
-    printf("                 | | (_)                    | |          |  __ \\             | |                       | | (_)                \n");
-    printf("   __ _  ___  ___| |_ _  ___  _ __        __| | ___      | |__) |___    ___  | | __ _ _ __ ___   __ _  | |_ _  ___  _ __  ___ \n");
-    printf("  / _` |/ _ \\/ __| __| |/ _ \\| '_ \\      / _` |/ _ \\     |  _  // _ \\  / __| | |/ _` | '_ ` _ \\ / _` | | __| |/ _ \\| '_ \\/ __|\n");
-    printf(" | (_| |  __/\\__ \\ |_| | (_) | | | |    | (_| |  __/     | | \\ \\  __/ | (__  | | (_| | | | | | | (_| | | |_| | (_) | | | \\__ \\ \n");
-    printf("  \\__, |\\___||___/\\__|_|\\___/|_| |_|     \\__,_|\\___|     |_|  \\_\\___|  \\___| |_|\__,_|_| |_| |_|\\__,_|  \\__|_|\\___/|_| |_|___/\n");
-    printf("   __/ |                                                                                                                       \n");
-    printf("  |___/                                                                                                                        \n");
+   printTab(); printf("\n");
+   printTab(); printf("                   _   _                      _            _____               _                         _   _                  \n");
+   printTab(); printf("                 | | (_)                    | |          |  __ \\             | |                       | | (_)                \n");
+    printTab();printf("   __ _  ___  ___| |_ _  ___  _ __        __| | ___      | |__) |___    ___  | | __ _ _ __ ___   __ _  | |_ _  ___  _ __  ___ \n");
+    printTab();printf("  / _` |/ _ \\/ __| __| |/ _ \\| '_ \\      / _` |/ _ \\     |  _  // _ \\  / __| | |/ _` | '_ ` _ \\ / _` | | __| |/ _ \\| '_ \\/ __|\n");
+  printTab();  printf(" | (_| |  __/\\__ \\ |_| | (_) | | | |    | (_| |  __/     | | \\ \\  __/ | (__  | | (_| | | | | | | (_| | | |_| | (_) | | | \\__ \\ \n");
+   printTab(); printf("  \\__, |\\___||___/\\__|_|\\___/|_| |_|     \\__,_|\\___|     |_|  \\_\\___|  \\___| |_|\__,_|_| |_| |_|\\__,_|  \\__|_|\\___/|_| |_|___/\n");
+   printTab(); printf("   __/ |                                                                                                                       \n");
+   printTab(); printf("  |___/                                                                                                                        \n");
 
     printf("\n\n\n\n");
 }
@@ -590,7 +592,7 @@ void modifier_reclamation_client(char *username) {
            printTab(); printf("Entrez la nouvelle description: ");
             scanf(" %[^\n]", nouvelleDescription);
             strcpy(claims[i].description, nouvelleDescription);
-
+            attribuerPriorite(&claims[i]);
             char nouvelleCategorie[50];
            printTab(); printf("Entrez la nouvelle categorie: ");
            printTab(); scanf(" %[^\n]", nouvelleCategorie);
@@ -633,6 +635,7 @@ void modifier_reclamation_All() {
           printTab();  printf("Entrez la nouvelle description: ");
             scanf(" %[^\n]", nouvelleDescription);
             strcpy(claims[i].description, nouvelleDescription);
+            attribuerPriorite(&claims[i]);
 
             char nouvelleCategorie[50];
          printTab();   printf("Entrez la nouvelle categorie: ");
@@ -1107,7 +1110,6 @@ void Generer_rapport(reclamation claims[], int claimCount) {
                 fprintf(fichier, "Date: %s\n", claims[i].date);
                 fprintf(fichier, "Notes: %s\n", claims[i].notes);
                 fprintf(fichier, "----------------------------------------------------------------------------\n");
-
             //}
 
     }
