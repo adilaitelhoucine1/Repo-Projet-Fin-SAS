@@ -287,7 +287,6 @@ int validatePassword(char *username, char *password) {
         else if (isdigit(password[i])) digit = 1;
         else if (ispunct(password[i])) special = 1;
     }
-
     if (strlen(password) >= 8 && upper && lower && digit && special && !strstr(password, username)) {
         return 1;
     } else {
@@ -529,7 +528,7 @@ void affiche_reclamations_client(char *username) {
            printTab(); printf("ID: %d\n", claims[i].id);
            printTab(); printf("Motif: %s\n", claims[i].Motif);
            printTab(); printf("Description: %s\n", claims[i].description);
-           printTab(); printf("Cat�gorie: %s\n", claims[i].categorie);
+           printTab(); printf("Categorie: %s\n", claims[i].categorie);
            printTab(); printf("Statut: %s\n", claims[i].status);
            printTab(); printf("Periorite: %s\n", claims[i].periorite);
            printTab(); printf("Date: %s\n", claims[i].date);
@@ -574,7 +573,7 @@ void modifier_reclamation_client(char *username) {
 
     for (int i = 0; i < claimCount; i++) {
         if (claims[i].id == id && strcmp(claims[i].username, username) == 0) { // V�rifie que l'utilisateur est le propri�taire
-        if(difference_entre_dates(claims[i].date,obtenir_date_actuelle())<10){ // jai tester 10 second
+        if(difference_entre_dates(claims[i].date,obtenir_date_actuelle())<86400){ // jai tester 10 second
           printTab();  printf("Reclamation trouv�e:\n");
           printTab();  printf("Motif: %s\n", claims[i].Motif);
           printTab();  printf("Description: %s\n", claims[i].description);
@@ -585,7 +584,7 @@ void modifier_reclamation_client(char *username) {
             // Demander les nouvelles infos
             char nouveauMotif[100];
            printTab(); printf("Entrez le nouveau motif: ");
-            printTab();scanf(" %[^\n]", nouveauMotif);
+            scanf(" %[^\n]", nouveauMotif);
             strcpy(claims[i].Motif, nouveauMotif);
 
             char nouvelleDescription[255];
@@ -595,7 +594,7 @@ void modifier_reclamation_client(char *username) {
             attribuerPriorite(&claims[i]);
             char nouvelleCategorie[50];
            printTab(); printf("Entrez la nouvelle categorie: ");
-           printTab(); scanf(" %[^\n]", nouvelleCategorie);
+            scanf(" %[^\n]", nouvelleCategorie);
             strcpy(claims[i].categorie, nouvelleCategorie);
 
            printTab(); printf("Reclamation modifiee avec succes.\n");
@@ -907,6 +906,16 @@ void rechercher_reclamation() {
                 if (claims[i].id == id) {
                 printTab();printf("Reclamation est bien trouve\n");
                     idfound = 1;
+            printTab(); printf("----------------------------------------------\n");
+            printTab(); printf("ID: %d\n", claims[i].id);
+           printTab(); printf("Motif: %s\n", claims[i].Motif);
+         printTab(); printf("Description: %s\n", claims[i].description);
+          printTab();  printf("Categorie: %s\n", claims[i].categorie);
+          printTab();  printf("Statut: %s\n", claims[i].status);
+        printTab();  printf("Periorite: %s\n", claims[i].periorite);
+          printTab();  printf("Date: %s\n", claims[i].date);
+          printTab();  printf("Notes: %s\n", claims[i].notes);
+          printTab(); printf("----------------------------------------------\n");
                     break;
                 }
             }
@@ -926,6 +935,17 @@ void rechercher_reclamation() {
                 if (strcmp(claims[i].Motif, motif) == 0) {
                   printTab();printf("Reclamation est bien trouve\n");
                     motiffound = 1;
+                                printTab(); printf("----------------------------------------------\n");
+            printTab(); printf("ID: %d\n", claims[i].id);
+           printTab(); printf("Motif: %s\n", claims[i].Motif);
+         printTab(); printf("Description: %s\n", claims[i].description);
+          printTab();  printf("Categorie: %s\n", claims[i].categorie);
+          printTab();  printf("Statut: %s\n", claims[i].status);
+        printTab();  printf("Periorite: %s\n", claims[i].periorite);
+          printTab();  printf("Date: %s\n", claims[i].date);
+          printTab();  printf("Notes: %s\n", claims[i].notes);
+          printTab(); printf("----------------------------------------------\n");
+                    break;
                 }
             }
 
@@ -944,6 +964,17 @@ void rechercher_reclamation() {
                 if (strcmp(claims[i].username, nomClient) == 0) {
                   printTab();printf("Reclamation est bien trouve \n");
                     clientFound = 1;
+                                printTab(); printf("----------------------------------------------\n");
+            printTab(); printf("ID: %d\n", claims[i].id);
+           printTab(); printf("Motif: %s\n", claims[i].Motif);
+         printTab(); printf("Description: %s\n", claims[i].description);
+          printTab();  printf("Categorie: %s\n", claims[i].categorie);
+          printTab();  printf("Statut: %s\n", claims[i].status);
+        printTab();  printf("Periorite: %s\n", claims[i].periorite);
+          printTab();  printf("Date: %s\n", claims[i].date);
+          printTab();  printf("Notes: %s\n", claims[i].notes);
+          printTab(); printf("----------------------------------------------\n");
+                    break;
                 }
             }
 
@@ -962,6 +993,17 @@ void rechercher_reclamation() {
                 if (strcmp(claims[i].date, date) == 0) {
                    printTab();printf("Reclamation est bien trouve\n");
                     dateFound = 1;
+                                printTab(); printf("----------------------------------------------\n");
+            printTab(); printf("ID: %d\n", claims[i].id);
+           printTab(); printf("Motif: %s\n", claims[i].Motif);
+         printTab(); printf("Description: %s\n", claims[i].description);
+          printTab();  printf("Categorie: %s\n", claims[i].categorie);
+          printTab();  printf("Statut: %s\n", claims[i].status);
+        printTab();  printf("Periorite: %s\n", claims[i].periorite);
+          printTab();  printf("Date: %s\n", claims[i].date);
+          printTab();  printf("Notes: %s\n", claims[i].notes);
+          printTab(); printf("----------------------------------------------\n");
+                    break;
                 }
             }
 
@@ -980,6 +1022,17 @@ void rechercher_reclamation() {
                 if (strcmp(claims[i].status, statut) == 0) {
                    printTab();printf("Reclamation est bien trouve\n");
                     statutFound = 1;
+                                printTab(); printf("----------------------------------------------\n");
+            printTab(); printf("ID: %d\n", claims[i].id);
+           printTab(); printf("Motif: %s\n", claims[i].Motif);
+         printTab(); printf("Description: %s\n", claims[i].description);
+          printTab();  printf("Categorie: %s\n", claims[i].categorie);
+          printTab();  printf("Statut: %s\n", claims[i].status);
+        printTab();  printf("Periorite: %s\n", claims[i].periorite);
+          printTab();  printf("Date: %s\n", claims[i].date);
+          printTab();  printf("Notes: %s\n", claims[i].notes);
+          printTab(); printf("----------------------------------------------\n");
+                    break;
                 }
             }
 
@@ -998,6 +1051,17 @@ void rechercher_reclamation() {
                 if (strcmp(claims[i].categorie, categorie) == 0) {
                    printTab();printf("Reclamation est bien trouve \n");
                     categorieFound = 1;
+                                printTab(); printf("----------------------------------------------\n");
+            printTab(); printf("ID: %d\n", claims[i].id);
+           printTab(); printf("Motif: %s\n", claims[i].Motif);
+         printTab(); printf("Description: %s\n", claims[i].description);
+          printTab();  printf("Categorie: %s\n", claims[i].categorie);
+          printTab();  printf("Statut: %s\n", claims[i].status);
+        printTab();  printf("Periorite: %s\n", claims[i].periorite);
+          printTab();  printf("Date: %s\n", claims[i].date);
+          printTab();  printf("Notes: %s\n", claims[i].notes);
+          printTab(); printf("----------------------------------------------\n");
+                    break;
                 }
             }
 
@@ -1027,16 +1091,23 @@ void Statistiques_Rapports() {
    printTab(); printf("| Nombre total   | %-23d |\n", claimCount);
   printTab();  printf("| Reclamations   |                         |\n");
   printTab();  printf("+----------------+-------------------------+\n");
-  printTab();  printf("| Taux de        | %d / %d                    |\n", nombre_reclama_resolue, claimCount);
+  float pour=(float)nombre_reclama_resolue/(float)claimCount;
+  if(claimCount==0){
+  printTab();  printf("| Taux de        | %d / %d     0 %%        |\n", nombre_reclama_resolue,claimCount);
   printTab();  printf("| Resolution     |                          |\n");
   printTab();  printf("+----------------+-------------------------+\n");
-
+  }else{
+  printTab();  printf("| Taux de        | %d / %d     %.2f %%        |\n", nombre_reclama_resolue, claimCount,pour*100);
+  printTab();  printf("| Resolution     |                          |\n");
+  printTab();  printf("+----------------+-------------------------+\n");
+}
     // Calcul de la somme des diff
     for (int i = 0; i < differenceCount; i++) {
         somme += differences[i];
     }
 
     if (nombre_reclama_resolue != 0 || nombre_reclama_rejected !=0) {
+
         moyenne = (float)somme / (nombre_reclama_resolue+nombre_reclama_rejected); // Calcul de la moyenne
         printTab(); printf("| Delai moyen    | %.2f secondes            |\n", moyenne);
     } else {
